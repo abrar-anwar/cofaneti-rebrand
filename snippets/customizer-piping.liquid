@@ -1,0 +1,35 @@
+<div class="customizer_opt customizer_opt5" data-option-price="">
+  <div class="customizer_optTitle">
+    <h2>{{ section.settings.heading5 }}</h2>
+  </div>
+  <p class="config_opt_descrioption">{{ section.settings.text5 }}</p>
+
+  <!-- Tabs -->
+  <div class="customizer-tabs">
+    {% if section.settings.piping_group1_heading != blank %}
+      <button class="customizer-tab" data-tab="piping-{{ section.settings.piping_group1_heading | handleize }}">
+        {{ section.settings.piping_group1_heading }}
+      </button>
+    {% endif %}
+    {% if section.settings.piping_group2_heading != blank %}
+      <button class="customizer-tab" data-tab="piping-{{ section.settings.piping_group2_heading | handleize }}">
+        {{ section.settings.piping_group2_heading }}
+      </button>
+    {% endif %}
+    {% if section.settings.piping_group3_heading != blank %}
+      <button class="customizer-tab" data-tab="piping-{{ section.settings.piping_group3_heading | handleize }}">
+        {{ section.settings.piping_group3_heading }}
+      </button>
+    {% endif %}
+    {% if section.settings.piping_group4_heading != blank %}
+      <button class="customizer-tab" data-tab="piping-{{ section.settings.piping_group4_heading | handleize }}">
+        {{ section.settings.piping_group4_heading }}
+      </button>
+    {% endif %}
+  </div>
+
+  <div class="selected_opt_summay">
+    <p>{{ section.settings.title_tobeselect }}</p>
+    <h5>{{ section.settings.price_tobeselect }}</h5>
+  </div>
+</div>

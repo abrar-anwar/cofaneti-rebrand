@@ -26,17 +26,20 @@
   {%- endif -%}
 
   {%- style -%}
-    .section-{{ section.id }}-padding {
-      padding-top: {{ section.settings.padding_top | times: 0.75 | round: 0 }}px;
-      padding-bottom: {{ section.settings.padding_bottom | times: 0.75 | round: 0 }}px;
-    }
+      /* media-gallery#MediaGallery-template--25590421225738__main {
+        display: none;
+    } */
+        .section-{{ section.id }}-padding {
+          padding-top: {{ section.settings.padding_top | times: 0.75 | round: 0 }}px;
+          padding-bottom: {{ section.settings.padding_bottom | times: 0.75 | round: 0 }}px;
+        }
 
-    @media screen and (min-width: 750px) {
-      .section-{{ section.id }}-padding {
-        padding-top: {{ section.settings.padding_top }}px;
-        padding-bottom: {{ section.settings.padding_bottom }}px;
-      }
-    }
+        @media screen and (min-width: 750px) {
+          .section-{{ section.id }}-padding {
+            padding-top: {{ section.settings.padding_top }}px;
+            padding-bottom: {{ section.settings.padding_bottom }}px;
+          }
+        }
   {%- endstyle -%}
 
   <script src="{{ 'product-info.js' | asset_url }}" defer="defer"></script>
@@ -73,9 +76,9 @@
   {%- endif -%}
 
   {% assign variant_images = product.images | where: 'attached_to_variant?', true | map: 'src' %}
-  <div class="page-width">
-    <div class="product product--{{ section.settings.media_size }} product--{{ section.settings.media_position }} product--{{ section.settings.gallery_layout }} product--mobile-{{ section.settings.mobile_thumbnails }} grid grid--1-col {% if product.media.size > 0 %}grid--2-col-tablet{% else %}product--no-media{% endif %}">
-      <div class="grid__item product__media-wrapper">
+  <div class="page-width product_page">
+    <div class="product product--{{ section.settings.media_size }} product--{{ section.settings.media_position }} product--{{ section.settings.gallery_layout }} product--mobile-{{ section.settings.mobile_thumbnails }} grid grid--1-col {% if product.media.size > 0 %}{% else %}product--no-media{% endif %}">
+      <div class="grid__item product__media-wrapper mobile_media_{{ section.settings.mobile_thumbnails }}">
         {% render 'product-media-gallery', variant_images: variant_images %}
       </div>
       <div class="product__info-wrapper grid__item{% if settings.page_width > 1400 and section.settings.media_size == "small" %} product__info-wrapper--extra-padding{% endif %}{% if settings.animations_reveal_on_scroll %} scroll-trigger animate--slide-in{% endif %}">
@@ -91,7 +94,7 @@
                 {% render block %}
               {%- when 'text' -%}
                 <p
-                  class="product__text inline-richtext{% if block.settings.text_style == 'uppercase' %} caption-with-letter-spacing{% elsif block.settings.text_style == 'subtitle' %} subtitle{% endif %}"
+                  class="product__text inline-richtext{% if block.settings.text_style == 'uppercase' %} caption-with-letter-spacing{% elsif block.settings.text_style == 'subtitle' %} subtitle{% endif %} {% if block.settings.small_font %}reduce_font{% endif %}"
                   {{ block.shopify_attributes }}
                 >
                   {{- block.settings.text -}}
@@ -117,20 +120,6 @@
                 {%- if product.quantity_price_breaks_configured? -%}
                   <div class="volume-pricing-note" id="Volume-Note-{{ section.id }}">
                     <span>{{ 'products.product.volume_pricing.note' | t }}</span>
-                  </div>
-                {%- endif -%}
-                {%- if cart.taxes_included or cart.duties_included or shop.shipping_policy.body != blank -%}
-                  <div class="product__tax caption rte">
-                    {%- if cart.duties_included and cart.taxes_included -%}
-                      {{ 'products.product.duties_and_taxes_included' | t }}
-                    {%- elsif cart.taxes_included -%}
-                      {{ 'products.product.taxes_included' | t }}
-                    {%- elsif cart.duties_included -%}
-                      {{ 'products.product.duties_included' | t }}
-                    {%- endif -%}
-                    {%- if shop.shipping_policy.body != blank -%}
-                      {{ 'products.product.shipping_policy_html' | t: link: shop.shipping_policy.url }}
-                    {%- endif -%}
                   </div>
                 {%- endif -%}
                 <div {{ block.shopify_attributes }}>
@@ -356,7 +345,10 @@
                                 </dt>
                                 <dd>
                                   <span class="price-per-item--current">
-                                    {{- 'products.product.volume_pricing.price_at_each_html' | t: price: variant_price -}}
+                                    {{-
+                                      'products.product.volume_pricing.price_at_each_html'
+                                      | t: price: variant_price
+                                    -}}
                                   </span>
                                 </dd>
                               </dl>
@@ -762,6 +754,12 @@
           ],
           "default": "body",
           "label": "t:sections.main-product.blocks.text.settings.text_style.label"
+        },
+        {
+          "type": "checkbox",
+          "id": "small_font",
+          "default": false,
+          "label": "Small font size"
         }
       ]
     },
@@ -1674,7 +1672,7 @@
         {
           "type": "header",
           "content": "t:sections.main-product.blocks.icon_with_text.settings.pairing_2.label"
-        },        
+        },
         {
           "type": "select",
           "id": "icon_2",
@@ -1874,7 +1872,7 @@
         {
           "type": "header",
           "content": "t:sections.main-product.blocks.icon_with_text.settings.pairing_3.label"
-        },        
+        },
         {
           "type": "select",
           "id": "icon_3",
@@ -2162,6 +2160,10 @@
       "id": "mobile_thumbnails",
       "options": [
         {
+          "value": "stack",
+          "label": "Stack"
+        },
+        {
           "value": "columns",
           "label": "t:sections.main-product.settings.mobile_thumbnails.options__1.label"
         },
@@ -2176,7 +2178,7 @@
       ],
       "default": "hide",
       "label": "t:sections.main-product.settings.mobile_thumbnails.label"
-    },    
+    },
     {
       "type": "select",
       "id": "media_position",
@@ -2248,6 +2250,78 @@
       "unit": "px",
       "label": "t:sections.all.padding.padding_bottom",
       "default": 36
+    },
+    {
+      "type": "header",
+      "content": "Model Option Handeling"
+    },
+    {
+      "type": "text",
+      "id": "option_identifier",
+      "label": "Option Name",
+      "info": "Option Name to identify where we need to show additional info and models images under this option",
+      "default": "Medida"
+    },
+    {
+      "type": "text",
+      "id": "model_title",
+      "label": "Models Title",
+      "default": "Modelo"
+    },
+    {
+      "type": "text",
+      "id": "model1_name",
+      "label": "Model 1 Name"
+    },
+    {
+      "type": "image_picker",
+      "id": "model1",
+      "label": "Model 1 Image"
+    },
+    {
+      "type": "text",
+      "id": "model2_name",
+      "label": "Model 2 Name"
+    },
+    {
+      "type": "image_picker",
+      "id": "model2",
+      "label": "Model 2 Image"
+    },
+    {
+      "type": "text",
+      "id": "model3_name",
+      "label": "Model 3 Name"
+    },
+    {
+      "type": "image_picker",
+      "id": "model3",
+      "label": "Model 3 Image"
+    },
+    {
+      "type": "text",
+      "id": "model4_name",
+      "label": "Model 4 Name"
+    },
+    {
+      "type": "image_picker",
+      "id": "model4",
+      "label": "Model 4 Image"
+    },
+    {
+      "type": "text",
+      "id": "model5_name",
+      "label": "Model 5 Name"
+    },
+    {
+      "type": "image_picker",
+      "id": "model5",
+      "label": "Model 5"
+    },
+    {
+      "type": "textarea",
+      "id": "info",
+      "label": "Addtional Info to show under 'MEDIDA'"
     }
   ]
 }

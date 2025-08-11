@@ -1,0 +1,393 @@
+<div class="customizer_media_wrap">
+  {% for media in product.media %}
+    {% if media.media_type == 'image' %}
+      <img src="{{ media | image_url: width: 800 }}" alt="{{ media.alt }}">
+    {% endif %}
+  {% endfor %}
+</div>
+
+<div class="customizer_fabric_media option_media_block" id="fabric__block">
+  <!-- Group1 Fabrics -->
+  {% if section.settings.fabric_group1_heading != blank %}
+    <div class="customizer-tab-content" id="fabric-{{ section.settings.fabric_group1_heading | handleize }}">
+      <div class="customizer-tab-items">
+        {% for fabric in section.settings.fabric_group1_entries %}
+          {% assign group1_price = section.settings.fabric_group1_price %}
+          {% if french_market %}
+            {% assign increase = section.settings.fabric_group1_price
+              | times: section.settings.price_increase
+              | divided_by: 100
+            %}
+            {% assign group1_price = section.settings.fabric_group1_price | plus: increase %}
+          {% endif %}
+
+          <div
+            class="customizer-tab-item"
+            style="background: url({{ fabric.image | image_url }});"
+            data-price="{{ group1_price }}"
+            data-title="{{ fabric.title.value }}"
+            data-img="{{ fabric.image | image_url }}"
+          >
+            <div class="customizer-tab-ctas">
+              <button class="btn_view">AÑADIR</button>
+              <button class="btn_select">VER</button>
+            </div>
+            <h2>{{ fabric.title.value }}</h2>
+          </div>
+        {% endfor %}
+      </div>
+    </div>
+  {% endif %}
+
+  <!-- Group2 Fabrics -->
+  {% if section.settings.fabric_group2_heading != blank %}
+    <div class="customizer-tab-content" id="fabric-{{ section.settings.fabric_group2_heading | handleize }}">
+      <div class="customizer-tab-items">
+        {% for fabric in section.settings.fabric_group2_entries %}
+          {% assign group2_price = section.settings.fabric_group2_price %}
+          {% if french_market %}
+            {% assign increase = group2_price | times: section.settings.price_increase | divided_by: 100 %}
+            {% assign group2_price = group2_price | plus: increase %}
+          {% endif %}
+
+          <div
+            class="customizer-tab-item"
+            style="background: url({{ fabric.image | image_url }});"
+            data-price="{{ group2_price }}"
+            data-title="{{ fabric.title.value }}"
+            data-img="{{ fabric.image | image_url }}"
+          >
+            <div class="customizer-tab-ctas">
+              <button class="btn_view">AÑADIR</button>
+              <button class="btn_select">VER</button>
+            </div>
+            <h2>{{ fabric.title.value }}</h2>
+          </div>
+        {% endfor %}
+      </div>
+    </div>
+  {% endif %}
+
+  <!-- Group3 Fabrics -->
+  {% if section.settings.fabric_group3_heading != blank %}
+    <div class="customizer-tab-content" id="fabric-{{ section.settings.fabric_group3_heading | handleize }}">
+      <div class="customizer-tab-items">
+        {% for fabric in section.settings.fabric_group3_entries %}
+          {% assign group3_price = section.settings.fabric_group3_price %}
+          {% if french_market %}
+            {% assign increase = group3_price | times: section.settings.price_increase | divided_by: 100 %}
+            {% assign group3_price = group3_price | plus: increase %}
+          {% endif %}
+          <div
+            class="customizer-tab-item"
+            style="background: url({{ fabric.image | image_url }});"
+            data-price="{{ group3_price }}"
+            data-title="{{ fabric.title.value }}"
+            data-img="{{ fabric.image | image_url }}"
+          >
+            <div class="customizer-tab-ctas">
+              <button class="btn_view">AÑADIR</button>
+              <button class="btn_select">VER</button>
+            </div>
+            <h2>{{ fabric.title.value }}</h2>
+          </div>
+        {% endfor %}
+      </div>
+    </div>
+  {% endif %}
+
+  <!-- Group4 Fabrics -->
+  {% if section.settings.fabric_group4_heading != blank %}
+    <div class="customizer-tab-content" id="fabric-{{ section.settings.fabric_group4_heading | handleize }}">
+      <div class="customizer-tab-items">
+        {% for fabric in section.settings.fabric_group4_entries %}
+          {% assign group4_price = section.settings.fabric_group4_price %}
+          {% if french_market %}
+            {% assign increase = group4_price | times: section.settings.price_increase | divided_by: 100 %}
+            {% assign group4_price = group4_price | plus: increase %}
+          {% endif %}
+          <div
+            class="customizer-tab-item"
+            style="background: url({{ fabric.image | image_url }});"
+            data-price="{{ group4_price }}"
+            data-title="{{ fabric.title.value }}"
+            data-img="{{ fabric.image | image_url }}"
+          >
+            <div class="customizer-tab-ctas">
+              <button class="btn_view">AÑADIR</button>
+              <button class="btn_select">VER</button>
+            </div>
+            <h2>{{ fabric.title.value }}</h2>
+          </div>
+        {% endfor %}
+      </div>
+    </div>
+  {% endif %}
+</div>
+
+<div class="customizer_lband_media option_media_block" id="lband__block">
+  <!-- Group1 Laternal Band -->
+  {% if section.settings.lband_group1_heading != blank %}
+    <div class="customizer-tab-content" id="lband-{{ section.settings.lband_group1_heading | handleize }}">
+      <div class="customizer-tab-items">
+        {% for fabric in section.settings.lband_group1_entries %}
+          {% assign group1_price = section.settings.lband_group1_price %}
+          {% if french_market %}
+            {% assign increase = group1_price | times: section.settings.price_increase | divided_by: 100 %}
+            {% assign group1_price = group1_price | plus: increase %}
+          {% endif %}
+
+          <div
+            class="customizer-tab-item"
+            style="background: url({{ fabric.image | image_url }});"
+            data-price="{{ group1_price }}"
+            data-title="{{ fabric.title.value }}"
+            data-img="{{ fabric.image | image_url }}"
+          >
+            <div class="customizer-tab-ctas">
+              <button class="btn_view">AÑADIR</button>
+              <button class="btn_select">VER</button>
+            </div>
+            <h2>{{ fabric.title.value }}</h2>
+          </div>
+        {% endfor %}
+      </div>
+    </div>
+  {% endif %}
+
+  <!-- Group2 Laternal Band -->
+  {% if section.settings.lband_group2_heading != blank %}
+    <div class="customizer-tab-content" id="lband-{{ section.settings.lband_group2_heading | handleize }}">
+      <div class="customizer-tab-items">
+        {% for fabric in section.settings.lband_group2_entries %}
+          {% assign group2_price = section.settings.lband_group2_price %}
+          {% if french_market %}
+            {% assign increase = group2_price | times: section.settings.price_increase | divided_by: 100 %}
+            {% assign group2_price = group2_price | plus: increase %}
+          {% endif %}
+
+          <div
+            class="customizer-tab-item"
+            style="background: url({{ fabric.image | image_url }});"
+            data-price="{{ group2_price }}"
+            data-title="{{ fabric.title.value }}"
+            data-img="{{ fabric.image | image_url }}"
+          >
+            <div class="customizer-tab-ctas">
+              <button class="btn_view">AÑADIR</button>
+              <button class="btn_select">VER</button>
+            </div>
+            <h2>{{ fabric.title.value }}</h2>
+          </div>
+        {% endfor %}
+      </div>
+    </div>
+  {% endif %}
+
+  <!-- Group3 Laternal Band -->
+  {% if section.settings.lband_group3_heading != blank %}
+    <div class="customizer-tab-content" id="lband-{{ section.settings.lband_group3_heading | handleize }}">
+      <div class="customizer-tab-items">
+        {% for fabric in section.settings.lband_group3_entries %}
+          {% assign group3_price = section.settings.lband_group3_price %}
+          {% if french_market %}
+            {% assign increase = group3_price | times: section.settings.price_increase | divided_by: 100 %}
+            {% assign group3_price = group3_price | plus: increase %}
+          {% endif %}
+
+          <div
+            class="customizer-tab-item"
+            style="background: url({{ fabric.image | image_url }});"
+            data-price="{{ group3_price }}"
+            data-title="{{ fabric.title.value }}"
+            data-img="{{ fabric.image | image_url }}"
+          >
+            <div class="customizer-tab-ctas">
+              <button class="btn_view">AÑADIR</button>
+              <button class="btn_select">VER</button>
+            </div>
+            <h2>{{ fabric.title.value }}</h2>
+          </div>
+        {% endfor %}
+      </div>
+    </div>
+  {% endif %}
+
+  <!-- Group4 Laternal Band -->
+  {% if section.settings.lband_group4_heading != blank %}
+    <div class="customizer-tab-content" id="lband-{{ section.settings.lband_group4_heading | handleize }}">
+      <div class="customizer-tab-items">
+        {% for fabric in section.settings.lband_group4_entries %}
+          {% assign group4_price = section.settings.lband_group4_price %}
+          {% if french_market %}
+            {% assign increase = group4_price | times: section.settings.price_increase | divided_by: 100 %}
+            {% assign group4_price = group4_price | plus: increase %}
+          {% endif %}
+
+          <div
+            class="customizer-tab-item"
+            style="background: url({{ fabric.image | image_url }});"
+            data-price="{{ group4_price }}"
+            data-title="{{ fabric.title.value }}"
+            data-img="{{ fabric.image | image_url }}"
+          >
+            <div class="customizer-tab-ctas">
+              <button class="btn_view">AÑADIR</button>
+              <button class="btn_select">VER</button>
+            </div>
+            <h2>{{ fabric.title.value }}</h2>
+          </div>
+        {% endfor %}
+      </div>
+    </div>
+  {% endif %}
+
+  <!-- Group5 Laternal Band -->
+  {% if section.settings.lband_group5_heading != blank %}
+    <div class="customizer-tab-content" id="lband-{{ section.settings.lband_group5_heading | handleize }}">
+      <div class="customizer-tab-items">
+        {% for fabric in section.settings.lband_group5_entries %}
+          {% assign group5_price = section.settings.lband_group5_price %}
+          {% if french_market %}
+            {% assign increase = group5_price | times: section.settings.price_increase | divided_by: 100 %}
+            {% assign group5_price = group5_price | plus: increase %}
+          {% endif %}
+
+          <div
+            class="customizer-tab-item"
+            style="background: url({{ fabric.image | image_url }});"
+            data-price="{{ group5_price }}"
+            data-title="{{ fabric.title.value }}"
+            data-img="{{ fabric.image | image_url }}"
+          >
+            <div class="customizer-tab-ctas">
+              <button class="btn_view">AÑADIR</button>
+              <button class="btn_select">VER</button>
+            </div>
+            <h2>{{ fabric.title.value }}</h2>
+          </div>
+        {% endfor %}
+      </div>
+    </div>
+  {% endif %}
+</div>
+
+<div class="customizer_fabric_media option_media_block" id="piping__block">
+  <!-- Piping Group 1 Media -->
+  {% if section.settings.piping_group1_heading != blank and section.settings.piping_group1_entries.count > 0 %}
+    <div class="customizer-tab-content" id="piping-{{ section.settings.piping_group1_heading | handleize }}">
+      <div class="customizer-tab-items">
+        {% for piping in section.settings.piping_group1_entries %}
+          {% assign group1_price = section.settings.piping_group1_price %}
+          {% if french_market %}
+            {% assign increase = group1_price | times: section.settings.price_increase | divided_by: 100 %}
+            {% assign group1_price = group1_price | plus: increase %}
+          {% endif %}
+
+          <div
+            class="customizer-tab-item"
+            style="background: url({{ piping.image | image_url }});"
+            data-price="{{ group1_price }}"
+            data-title="{{ piping.title.value }}"
+            data-img="{{ piping.image | image_url }}"
+          >
+            <div class="customizer-tab-ctas">
+              <button class="btn_view">AÑADIR</button>
+              <button class="btn_select">VER</button>
+            </div>
+            <h2>{{ piping.title.value }}</h2>
+          </div>
+        {% endfor %}
+      </div>
+    </div>
+  {% endif %}
+
+  <!-- Piping Group 2 Media -->
+  {% if section.settings.piping_group2_heading != blank and section.settings.piping_group2_entries.count > 0 %}
+    <div class="customizer-tab-content" id="piping-{{ section.settings.piping_group2_heading | handleize }}">
+      {% if section.settings.piping_group2_entries.count > 0 %}
+        <div class="customizer-tab-items">
+          {% for piping in section.settings.piping_group2_entries %}
+            {% assign group2_price = section.settings.piping_group2_price %}
+            {% if french_market %}
+              {% assign increase = group2_price | times: section.settings.price_increase | divided_by: 100 %}
+              {% assign group2_price = group2_price | plus: increase %}
+            {% endif %}
+
+            <div
+              class="customizer-tab-item"
+              style="background: url({{ piping.image | image_url }});"
+              data-price="{{ group2_price }}"
+              data-title="{{ piping.title.value }}"
+              data-img="{{ piping.image | image_url }}"
+            >
+              <div class="customizer-tab-ctas">
+                <button class="btn_view">AÑADIR</button>
+                <button class="btn_select">VER</button>
+              </div>
+              <h2>{{ piping.title.value }}</h2>
+            </div>
+          {% endfor %}
+        </div>
+      {% endif %}
+    </div>
+  {% endif %}
+
+  <!-- Piping Group 3 Media -->
+  {% if section.settings.piping_group3_heading != blank and section.settings.piping_group3_entries.count > 0 %}
+    <div class="customizer-tab-content" id="piping-{{ section.settings.piping_group3_heading | handleize }}">
+      <div class="customizer-tab-items">
+        {% for piping in section.settings.piping_group3_entries %}
+          {% assign group3_price = section.settings.piping_group3_price %}
+          {% if french_market %}
+            {% assign increase = group3_price | times: section.settings.price_increase | divided_by: 100 %}
+            {% assign group3_price = group3_price | plus: increase %}
+          {% endif %}
+
+          <div
+            class="customizer-tab-item"
+            style="background: url({{ piping.image | image_url }});"
+            data-price="{{ group3_price }}"
+            data-title="{{ piping.title.value }}"
+            data-img="{{ piping.image | image_url }}"
+          >
+            <div class="customizer-tab-ctas">
+              <button class="btn_view">AÑADIR</button>
+              <button class="btn_select">VER</button>
+            </div>
+            <h2>{{ piping.title.value }}</h2>
+          </div>
+        {% endfor %}
+      </div>
+    </div>
+  {% endif %}
+
+  <!-- Piping Group 4 Media -->
+  {% if section.settings.piping_group1_heading != blank and section.settings.piping_group4_entries.count > 0 %}
+    <div class="customizer-tab-content" id="piping-{{ section.settings.piping_group4_heading | handleize }}">
+      <div class="customizer-tab-items">
+        {% for piping in section.settings.piping_group4_entries %}
+          {% assign group4_price = section.settings.piping_group4_price %}
+          {% if french_market %}
+            {% assign increase = group4_price | times: section.settings.price_increase | divided_by: 100 %}
+            {% assign group4_price = group4_price | plus: increase %}
+          {% endif %}
+
+          <div
+            class="customizer-tab-item"
+            style="background: url({{ piping.image | image_url }});"
+            data-price="{{ group4_price }}"
+            data-title="{{ piping.title.value }}"
+            data-img="{{ piping.image | image_url }}"
+          >
+            <div class="customizer-tab-ctas">
+              <button class="btn_view">AÑADIR</button>
+              <button class="btn_select">VER</button>
+            </div>
+            <h2>{{ piping.title.value }}</h2>
+          </div>
+        {% endfor %}
+      </div>
+    </div>
+  {% endif %}
+</div>

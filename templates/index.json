@@ -9,22 +9,67 @@
  */
 {
   "sections": {
-    "image_banner": {
-      "type": "image-banner",
+    "scrolling_hero_banner_WLanK9": {
+      "type": "scrolling-hero-banner",
       "blocks": {
-        "heading": {
-          "type": "heading",
+        "slide_ynNbg4": {
+          "type": "slide",
           "settings": {
-            "heading": "Browse our latest products",
-            "heading_size": "h0"
+            "image": "shopify://shop_images/WhatsApp_Image_2024-09-03_at_16.00.02_881275c1-898b-4ebf-ac51-f60d99ae5951.jpg",
+            "mobile_image": "shopify://shop_images/WhatsApp_Image_2024-11-04_at_18.29.59.jpg",
+            "heading": "Editions",
+            "Text": "Cofaneti"
           }
         },
-        "button": {
-          "type": "buttons",
+        "slide_r7QCeh": {
+          "type": "slide",
           "settings": {
-            "button_label_1": "Shop all",
-            "button_link_1": "shopify://collections/all",
-            "button_style_secondary_1": true,
+            "image": "shopify://shop_images/Texto.png",
+            "mobile_image": "shopify://shop_images/Texto.png",
+            "heading": "Editions",
+            "Text": "Cofaneti"
+          }
+        },
+        "slide_G4bnhV": {
+          "type": "slide",
+          "settings": {
+            "image": "shopify://shop_images/Captura_de_pantalla_2025-04-29_212310.png",
+            "mobile_image": "shopify://shop_images/WhatsApp_Image_2025-04-29_at_22.09.18.jpg",
+            "heading": "Editions",
+            "Text": "Cofaneti"
+          }
+        }
+      },
+      "block_order": [
+        "slide_ynNbg4",
+        "slide_r7QCeh",
+        "slide_G4bnhV"
+      ],
+      "name": "Hero scrolling section",
+      "settings": {}
+    },
+    "rich_text_D9RURb": {
+      "type": "rich-text",
+      "blocks": {
+        "heading_GApAd8": {
+          "type": "heading",
+          "settings": {
+            "heading": "¿Eres un profesional o una empresa?",
+            "heading_size": "h1"
+          }
+        },
+        "text_wwRWkR": {
+          "type": "text",
+          "settings": {
+            "text": "<p>Somos colaboradores habituales de estudios de interiorismo y empresas de hostelería y real estate. Para un trato más personalizado ponte en contacto con nosotros.</p>"
+          }
+        },
+        "button_MdbjQX": {
+          "type": "button",
+          "settings": {
+            "button_label": "Contacto",
+            "button_link": "shopify://pages/contacto",
+            "button_style_secondary": false,
             "button_label_2": "",
             "button_link_2": "",
             "button_style_secondary_2": false
@@ -32,53 +77,23 @@
         }
       },
       "block_order": [
-        "heading",
-        "button"
+        "heading_GApAd8",
+        "text_wwRWkR",
+        "button_MdbjQX"
       ],
+      "name": "t:sections.rich-text.presets.name",
       "settings": {
-        "image_overlay_opacity": 40,
-        "image_height": "large",
-        "desktop_content_position": "bottom-center",
-        "show_text_box": false,
-        "image_behavior": "none",
-        "desktop_content_alignment": "center",
-        "color_scheme": "scheme-3",
-        "mobile_content_alignment": "center",
-        "stack_images_on_mobile": false,
-        "show_text_below": false
-      }
-    },
-    "featured_collection": {
-      "type": "featured-collection",
-      "settings": {
-        "title": "Featured products",
-        "heading_size": "h2",
-        "description": "",
-        "show_description": false,
-        "description_style": "body",
-        "collection": "all",
-        "products_to_show": 8,
-        "columns_desktop": 4,
+        "desktop_content_position": "center",
+        "content_alignment": "center",
         "color_scheme": "scheme-1",
-        "full_width": false,
-        "show_view_all": true,
-        "view_all_style": "solid",
-        "enable_desktop_slider": false,
-        "swipe_on_mobile": false,
-        "image_ratio": "adapt",
-        "image_shape": "default",
-        "show_secondary_image": true,
-        "show_vendor": false,
-        "show_rating": false,
-        "quick_add": "none",
-        "columns_mobile": "2",
-        "padding_top": 44,
-        "padding_bottom": 36
+        "full_width": true,
+        "padding_top": 40,
+        "padding_bottom": 52
       }
     }
   },
   "order": [
-    "image_banner",
-    "featured_collection"
+    "scrolling_hero_banner_WLanK9",
+    "rich_text_D9RURb"
   ]
 }

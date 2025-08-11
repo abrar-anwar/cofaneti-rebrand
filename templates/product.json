@@ -12,74 +12,117 @@
     "main": {
       "type": "main-product",
       "blocks": {
-        "vendor": {
+        "text_KKyM4k": {
           "type": "text",
           "settings": {
-            "text": "{{ product.vendor }}",
-            "text_style": "uppercase"
+            "text": "<strong>Personaliza este </strong><strong>{{ product.title }}</strong>",
+            "text_style": "subtitle",
+            "small_font": false
           }
         },
-        "title": {
-          "type": "title",
-          "settings": {}
-        },
-        "price": {
+        "price_64dfEH": {
           "type": "price",
           "settings": {}
+        },
+        "text_bP4BG3": {
+          "type": "text",
+          "settings": {
+            "text": "<strong>Escoge una opción en cada apartado</strong>",
+            "text_style": "body",
+            "small_font": false
+          }
+        },
+        "text_HVwFXn": {
+          "type": "text",
+          "settings": {
+            "text": "Un cabecero es un mueble muy personal con el que se convive a diario y que ha de durar muchos años. Desde Cofaneti estaremos encantados de atenderte por WhatsApp y acompañarte durante todo el proceso",
+            "text_style": "body",
+            "small_font": true
+          }
         },
         "variant_picker": {
           "type": "variant_picker",
           "settings": {
             "picker_type": "button",
-            "swatch_shape": "circle"
+            "swatch_shape": "none"
           }
-        },
-        "quantity_selector": {
-          "type": "quantity_selector",
-          "settings": {}
         },
         "buy_buttons": {
           "type": "buy_buttons",
           "settings": {
-            "show_dynamic_checkout": true,
+            "show_dynamic_checkout": false,
             "show_gift_card_recipient": true
           }
         },
-        "description": {
-          "type": "description",
-          "settings": {}
-        },
-        "share": {
-          "type": "share",
+        "collapsible_tab_zbKCYk": {
+          "type": "collapsible_tab",
           "settings": {
-            "share_label": "Share"
+            "heading": "COMPOSICIÓN Y CALIDADES",
+            "icon": "none",
+            "content": "<p>Nuestros cabeceros se fabrican artesanalmente con madera maciza secada al horno, espuma de alta densidad y tejidos certificados OEKO‑TEX seleccionados por su textura y solidez del color. Cada pieza se ensambla con refuerzos en las esquinas y costuras dobles para garantizar una estructura estable y un acabado impecable y duradero.</p>",
+            "page": ""
+          }
+        },
+        "collapsible_tab_gMNmYx": {
+          "type": "collapsible_tab",
+          "settings": {
+            "heading": "CUIDADOS Y MANTENIMIENTO",
+            "icon": "none",
+            "content": "<p>Aspirar regularmente el tapizado con un accesorio de cepillo suave, absorber los derrames de inmediato con un paño limpio y utilizar un limpiador de tapicería a base de agua para limpiezas más profundas. Si el cabecero recibe luz solar directa, gírelo una vez al año para evitar decoloraciones; evite productos químicos agresivos o herramientas abrasivas que puedan dañar las fibras o la estructura.</p>",
+            "page": ""
+          }
+        },
+        "collapsible_tab_3YxTEn": {
+          "type": "collapsible_tab",
+          "settings": {
+            "heading": "ENVÍOS, CAMBIOS Y CANCELACIONES",
+            "icon": "none",
+            "content": "<p>Cada cabecero se fabrica bajo pedido y se envía en un plazo de 4‑6 semanas mediante transporte asegurado con entrega en la habitación. Puede cancelar o modificar su compra dentro de las primeras 48 horas para recibir un reembolso completo; después de iniciado el proceso de producción, las cancelaciones conllevan una tarifa de reposición. Si su cabecero llega dañado o necesita otra medida, contáctenos en un plazo de 14 días para gestionar un cambio o devolución sin coste.</p>",
+            "page": ""
           }
         }
       },
       "block_order": [
-        "vendor",
-        "title",
-        "price",
+        "text_KKyM4k",
+        "price_64dfEH",
+        "text_bP4BG3",
+        "text_HVwFXn",
         "variant_picker",
-        "quantity_selector",
         "buy_buttons",
-        "description",
-        "share"
+        "collapsible_tab_zbKCYk",
+        "collapsible_tab_gMNmYx",
+        "collapsible_tab_3YxTEn"
+      ],
+      "custom_css": [
+        "p.product__text.inline-richtext {text-align: center;}",
+        ".product .price__container {text-align: center; display: flex; align-items: center; justify-content: center; color: rgba(var(--color-foreground), 0.7);}"
       ],
       "settings": {
         "enable_sticky_info": true,
         "color_scheme": "scheme-1",
-        "media_size": "large",
-        "constrain_to_viewport": true,
-        "media_fit": "contain",
+        "media_size": "medium",
+        "constrain_to_viewport": false,
+        "media_fit": "cover",
         "gallery_layout": "stacked",
-        "mobile_thumbnails": "hide",
+        "mobile_thumbnails": "stack",
         "media_position": "left",
-        "image_zoom": "lightbox",
+        "image_zoom": "none",
         "hide_variants": true,
         "enable_video_looping": false,
-        "padding_top": 36,
-        "padding_bottom": 12
+        "padding_top": 0,
+        "padding_bottom": 12,
+        "option_identifier": "Medida",
+        "model_title": "Modelo",
+        "model1_name": "Matilda",
+        "model1": "shopify://shop_images/shape_1.png",
+        "model2_name": "Olivia",
+        "model2": "shopify://shop_images/shape_2.png",
+        "model3_name": "Sofia",
+        "model3": "shopify://shop_images/shape_3.png",
+        "model4_name": "Model 4",
+        "model4": "shopify://shop_images/shape_5.png",
+        "model5_name": "",
+        "info": "<strong>CUSTOMIZADO  cm x cm</strong>\n<br>Las medidas estándares están pensadas para que el cabecero vaya colgado, en caso  de que no se ajusten a tu dormitorio, ya sea por el ancho o por el alto, o por los dos, damos la opción de hacerlo a la medida que tu quieras."
       }
     },
     "related-products": {
@@ -99,10 +142,17 @@
         "padding_top": 36,
         "padding_bottom": 28
       }
+    },
+    "buy_summary_P9mKjm": {
+      "type": "buy-summary",
+      "disabled": true,
+      "name": "Buy Summary",
+      "settings": {}
     }
   },
   "order": [
     "main",
-    "related-products"
+    "related-products",
+    "buy_summary_P9mKjm"
   ]
 }

@@ -17,63 +17,86 @@
 {%- endif -%}
 
 <style>
-  header-drawer {
-    justify-self: start;
-    margin-left: -1.2rem;
+    {% if template contains 'index' %}
+      .header__heading-logo-wrapper img{
+        filter: invert(1) contrast(630%) brightness(100%) !important;
+      }
+    {% endif %}
+    header-drawer {
+      justify-self: start;
+      margin-left: -1.2rem;
+    }
+    {% if template.name contains 'index' or template.suffix contains 'masonary' or template.name contains 'product'  %}
+      .header-wrapper{
+        position:absolute;
+        left: 0;
+        right: 0;
+        margin: 0 auto;
+      }
+    {% endif %}
+
+      .logo--inverted img {
+        filter: invert(1) contrast(630%) brightness(100%) !important;
+      }
+
+    {%- if section.settings.sticky_header_type == 'reduce-logo-size' -%}
+      .scrolled-past-header .header__heading-logo-wrapper {
+        width: 75%;
+      }
+    {%- endif -%}
+
+    {%- if section.settings.menu_type_desktop != "drawer" -%}
+      @media screen and (min-width: 990px) {
+        header-drawer {
+          display: none;
+        }
+      }
+    {%- endif -%}
+
+    .menu-drawer-container {
+      display: flex;
+    }
+
+    .list-menu {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+    }
+
+    .list-menu--inline {
+      display: inline-flex;
+      flex-wrap: wrap;
+    }
+
+    summary.list-menu__item {
+      padding-right: 2.7rem;
+    }
+
+    .list-menu__item {
+      display: flex;
+      align-items: center;
+      line-height: calc(1 + 0.3 / var(--font-body-scale));
+    }
+
+    .list-menu__item--link {
+      text-decoration: none;
+      padding-bottom: 1rem;
+      padding-top: 1rem;
+      line-height: calc(1 + 0.8 / var(--font-body-scale));
+    }
+
+    header.header .header__heading-link,
+    header.header .header__heading-link .h2 {
+      text-transform: uppercase;
+      color: rgba(var(--color-foreground), 1);
   }
 
-  {%- if section.settings.sticky_header_type == 'reduce-logo-size' -%}
-    .scrolled-past-header .header__heading-logo-wrapper {
-      width: 75%;
-    }
-  {%- endif -%}
-
-  {%- if section.settings.menu_type_desktop != "drawer" -%}
-    @media screen and (min-width: 990px) {
-      header-drawer {
-        display: none;
+    @media screen and (min-width: 750px) {
+      .list-menu__item--link {
+        padding-bottom: 0.5rem;
+        padding-top: 0.5rem;
       }
     }
-  {%- endif -%}
-
-  .menu-drawer-container {
-    display: flex;
-  }
-
-  .list-menu {
-    list-style: none;
-    padding: 0;
-    margin: 0;
-  }
-
-  .list-menu--inline {
-    display: inline-flex;
-    flex-wrap: wrap;
-  }
-
-  summary.list-menu__item {
-    padding-right: 2.7rem;
-  }
-
-  .list-menu__item {
-    display: flex;
-    align-items: center;
-    line-height: calc(1 + 0.3 / var(--font-body-scale));
-  }
-
-  .list-menu__item--link {
-    text-decoration: none;
-    padding-bottom: 1rem;
-    padding-top: 1rem;
-    line-height: calc(1 + 0.8 / var(--font-body-scale));
-  }
-
-  @media screen and (min-width: 750px) {
-    .list-menu__item--link {
-      padding-bottom: 0.5rem;
-      padding-top: 0.5rem;
-    }
-  }
 </style>
 
 {%- style -%}
@@ -122,7 +145,7 @@
   {% if header_tag == 'sticky-header' %}
     data-sticky-type="{{ section.settings.sticky_header_type }}"
   {% endif %}
-  class="header-wrapper color-{{ section.settings.color_scheme }} gradient{% if section.settings.show_line_separator %} header-wrapper--border-bottom{% endif %}"
+  class="header-wrapper color-{%  if template.name contains 'index' %}{{ section.settings.color_scheme_index }}{% else%}{{ section.settings.color_scheme }}{% endif %} gradient{% if section.settings.show_line_separator %} header-wrapper--border-bottom{% endif %}"
 >
   {%- liquid
     assign social_links = false
@@ -152,28 +175,53 @@
         <h1 class="header__heading">
       {%- endif -%}
       <a href="{{ routes.root_url }}" class="header__heading-link link link--text focus-inset">
-        {%- if settings.logo != blank -%}
-          <div class="header__heading-logo-wrapper">
-            {%- assign logo_alt = settings.logo.alt | default: shop.name | escape -%}
-            {%- assign logo_height = settings.logo_width | divided_by: settings.logo.aspect_ratio -%}
-            {% capture sizes %}(max-width: {{ settings.logo_width | times: 2 }}px) 50vw, {{ settings.logo_width }}px{% endcapture %}
-            {% capture widths %}{{ settings.logo_width }}, {{ settings.logo_width | times: 1.5 | round }}, {{ settings.logo_width | times: 2 }}{% endcapture %}
-            {{
-              settings.logo
-              | image_url: width: 600
-              | image_tag:
-                class: 'header__heading-logo motion-reduce',
-                widths: widths,
-                height: logo_height,
-                width: settings.logo_width,
-                alt: logo_alt,
-                sizes: sizes,
-                preload: true
-            }}
-          </div>
-        {%- else -%}
-          <span class="h2">{{ shop.name }}</span>
-        {%- endif -%}
+        {% if request.page_type == 'index' %}
+          {%- if settings.home_logo != blank -%}
+            <div class="header__heading-logo-wrapper">
+              {%- assign logo_alt = settings.home_logo.alt | default: shop.name | escape -%}
+              {%- assign logo_height = settings.home_logo | divided_by: settings.home_logo.aspect_ratio -%}
+              {% capture sizes %}(max-width: {{ settings.logo_width | times: 2 }}px) 50vw, {{ settings.logo_width }}px{% endcapture %}
+              {% capture widths %}{{ settings.logo_width }}, {{ settings.logo_width | times: 1.5 | round }}, {{ settings.logo_width | times: 2 }}{% endcapture %}
+              {{
+                settings.home_logo
+                | image_url: width: 600
+                | image_tag:
+                  class: 'header__heading-logo motion-reduce',
+                  widths: widths,
+                  height: logo_height,
+                  width: settings.logo_width,
+                  alt: logo_alt,
+                  sizes: sizes,
+                  preload: true
+              }}
+            </div>
+          {%- else -%}
+            <span class="h2">{{ shop.name }}</span>
+          {%- endif -%}
+        {% else %}
+          {%- if settings.logo != blank -%}
+            <div class="header__heading-logo-wrapper">
+              {%- assign logo_alt = settings.logo.alt | default: shop.name | escape -%}
+              {%- assign logo_height = settings.logo_width | divided_by: settings.logo.aspect_ratio -%}
+              {% capture sizes %}(max-width: {{ settings.logo_width | times: 2 }}px) 50vw, {{ settings.logo_width }}px{% endcapture %}
+              {% capture widths %}{{ settings.logo_width }}, {{ settings.logo_width | times: 1.5 | round }}, {{ settings.logo_width | times: 2 }}{% endcapture %}
+              {{
+                settings.logo
+                | image_url: width: 600
+                | image_tag:
+                  class: 'header__heading-logo motion-reduce',
+                  widths: widths,
+                  height: logo_height,
+                  width: settings.logo_width,
+                  alt: logo_alt,
+                  sizes: sizes,
+                  preload: true
+              }}
+            </div>
+          {%- else -%}
+            <span class="h2">{{ shop.name }}</span>
+          {%- endif -%}
+        {% endif %}
       </a>
       {%- if request.page_type == 'index' -%}
         </h1>
@@ -195,28 +243,53 @@
         <h1 class="header__heading">
       {%- endif -%}
       <a href="{{ routes.root_url }}" class="header__heading-link link link--text focus-inset">
-        {%- if settings.logo != blank -%}
-          <div class="header__heading-logo-wrapper">
-            {%- assign logo_alt = settings.logo.alt | default: shop.name | escape -%}
-            {%- assign logo_height = settings.logo_width | divided_by: settings.logo.aspect_ratio -%}
-            {% capture sizes %}(min-width: 750px) {{ settings.logo_width }}px, 50vw{% endcapture %}
-            {% capture widths %}{{ settings.logo_width }}, {{ settings.logo_width | times: 1.5 | round }}, {{ settings.logo_width | times: 2 }}{% endcapture %}
-            {{
-              settings.logo
-              | image_url: width: 600
-              | image_tag:
-                class: 'header__heading-logo',
-                widths: widths,
-                height: logo_height,
-                width: settings.logo_width,
-                alt: logo_alt,
-                sizes: sizes,
-                preload: true
-            }}
-          </div>
-        {%- else -%}
-          <span class="h2">{{ shop.name }}</span>
-        {%- endif -%}
+        {% if request.page_type == 'index' %}
+          {%- if settings.home_logo != blank -%}
+            <div class="header__heading-logo-wrapper">
+              {%- assign logo_alt = settings.home_logo.alt | default: shop.name | escape -%}
+              {%- assign logo_height = settings.logo_width | divided_by: settings.home_logo.aspect_ratio -%}
+              {% capture sizes %}(min-width: 750px) {{ settings.logo_width }}px, 50vw{% endcapture %}
+              {% capture widths %}{{ settings.logo_width }}, {{ settings.logo_width | times: 1.5 | round }}, {{ settings.logo_width | times: 2 }}{% endcapture %}
+              {{
+                settings.home_logo
+                | image_url: width: 600
+                | image_tag:
+                  class: 'header__heading-logo',
+                  widths: widths,
+                  height: logo_height,
+                  width: settings.logo_width,
+                  alt: logo_alt,
+                  sizes: sizes,
+                  preload: true
+              }}
+            </div>
+          {%- else -%}
+            <span class="h2">{{ shop.name }}</span>
+          {%- endif -%}
+        {% else %}
+          {%- if settings.logo != blank -%}
+            <div class="header__heading-logo-wrapper">
+              {%- assign logo_alt = settings.logo.alt | default: shop.name | escape -%}
+              {%- assign logo_height = settings.logo_width | divided_by: settings.logo.aspect_ratio -%}
+              {% capture sizes %}(min-width: 750px) {{ settings.logo_width }}px, 50vw{% endcapture %}
+              {% capture widths %}{{ settings.logo_width }}, {{ settings.logo_width | times: 1.5 | round }}, {{ settings.logo_width | times: 2 }}{% endcapture %}
+              {{
+                settings.logo
+                | image_url: width: 600
+                | image_tag:
+                  class: 'header__heading-logo',
+                  widths: widths,
+                  height: logo_height,
+                  width: settings.logo_width,
+                  alt: logo_alt,
+                  sizes: sizes,
+                  preload: true
+              }}
+            </div>
+          {%- else -%}
+            <span class="h2">{{ shop.name }}</span>
+          {%- endif -%}
+        {% endif %}
       </a>
       {%- if request.page_type == 'index' -%}
         </h1>
@@ -426,6 +499,90 @@
   customElements.define('sticky-header', StickyHeader);
 {% endjavascript %}
 
+{% comment %} Logic to convert from transparent to backgrounded. {% endcomment %}
+{% comment %}
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      document.querySelectorAll('.header-wrapper').forEach((header) => {
+        let removedSchemes = [];
+        const newScheme = 'color-scheme-269ee6f1-de64-4476-bc39-7fe415557687';
+        const logoWrapper = header.querySelector('.header__heading-logo-wrapper');
+
+        header.addEventListener('mouseenter', () => {
+          if (!window.matchMedia('(hover: hover) and (pointer: fine)').matches) return;
+          removedSchemes = Array.from(header.classList).filter((c) => c.startsWith('color-scheme-'));
+          removedSchemes.forEach((c) => header.classList.remove(c));
+          header.classList.add(newScheme);
+          if (logoWrapper) {
+            logoWrapper.classList.add('logo--inverted');
+          }
+        });
+
+        header.addEventListener('mouseleave', () => {
+          header.classList.remove(newScheme);
+          removedSchemes.forEach((c) => header.classList.add(c));
+          if (logoWrapper) {
+            logoWrapper.classList.remove('logo--inverted');
+          }
+          removedSchemes = [];
+        });
+      });
+    });
+  </script>
+{% endcomment %}
+
+<script>
+  document.addEventListener('DOMContentLoaded', () => {
+    // The element that holds your header and gets the `menu-open` class
+    const header = document.querySelector('.header-wrapper');
+    const headerGroup = document.querySelector('.shopify-section-group-header-group');
+    if (!header) return;
+
+    const logoWrapper = header.querySelector('.header__heading-logo-wrapper');
+    const menuIcon = header.querySelector('.menu-drawer-container');
+    const newScheme = 'color-scheme-269ee6f1-de64-4476-bc39-7fe415557687';
+    let removedSchemes = [];
+
+    function applyScheme() {
+      // remember & remove any existing color-scheme-... classes
+      removedSchemes = Array.from(header.classList).filter((c) => c.startsWith('color-scheme-'));
+      removedSchemes.forEach((c) => header.classList.remove(c));
+
+      // add the one we want
+      header.classList.add(newScheme);
+      if (logoWrapper) logoWrapper.classList.add('logo--inverted');
+    }
+
+    function resetScheme() {
+      // remove our scheme, restore the old ones
+      header.classList.remove(newScheme);
+      removedSchemes.forEach((c) => header.classList.add(c));
+      removedSchemes = [];
+      if (logoWrapper) logoWrapper.classList.remove('logo--inverted');
+    }
+
+    const canHover = window.matchMedia('(hover: hover) and (pointer: fine)').matches;
+
+    if (canHover) {
+      // desktop: on hover
+      header.addEventListener('mouseenter', applyScheme);
+      header.addEventListener('mouseleave', resetScheme);
+    } else if (menuIcon) {
+      // mobile: on menu‐toggle click
+      menuIcon.addEventListener('click', () => {
+        // let the theme toggle its own class first
+        setTimeout(() => {
+          if (headerGroup.classList.contains('menu-open')) {
+            applyScheme();
+          } else {
+            resetScheme();
+          }
+        }, 0);
+      });
+    }
+  });
+</script>
+
 <script type="application/ld+json">
   {
     "@context": "http://schema.org",
@@ -572,6 +729,12 @@
     {
       "type": "header",
       "content": "t:sections.header.settings.header__1.content"
+    },
+    {
+      "type": "color_scheme",
+      "id": "color_scheme_index",
+      "label": "Home Page Header Color",
+      "default": "scheme-1"
     },
     {
       "type": "color_scheme",

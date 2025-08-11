@@ -9,6 +9,7 @@
   {% render 'product-variant-picker', product: product, block: block, product_form_id: product_form_id %}
 {% endcomment %}
 {%- unless product.has_only_default_variant -%}
+  <hr>
   <variant-selects
     id="variant-selects-{{ section.id }}"
     data-section="{{ section.id }}"
@@ -43,7 +44,7 @@
           %}
         </fieldset>
       {%- elsif picker_type == 'button' -%}
-        <fieldset class="js product-form__input product-form__input--pill">
+        <fieldset class="js product-form__input product-form__input--pill type_{{ block.settings.swatch_shape }}">
           <legend class="form__label">{{ option.name }}</legend>
           {% render 'product-variant-options',
             product: product,
@@ -51,7 +52,22 @@
             block: block,
             picker_type: picker_type
           %}
+
+          {% if option.name == section.settings.option_identifier %}
+            <div class="rich-text medida">
+              <p>
+                {{ section.settings.info }}
+              </p>
+            </div>
+          {% endif %}
         </fieldset>
+
+        {% comment %}
+          {% if option.name == section.settings.option_identifier and section.settings.model1 != blank.settings or section.settings.model2 != blank or section.settings.model3 != blank or section.settings.model4 != blank or section.settings.model5 != blank %}
+            {% render 'design', block: block, section: section %}
+          {% endif %}
+        {% endcomment %}
+
       {%- else -%}
         <div class="product-form__input product-form__input--dropdown">
           <label class="form__label" for="Option-{{ section.id }}-{{ forloop.index0 }}">
@@ -85,6 +101,7 @@
           </div>
         </div>
       {%- endif -%}
+      <hr>
     {%- endfor -%}
 
     <script type="application/json" data-selected-variant>

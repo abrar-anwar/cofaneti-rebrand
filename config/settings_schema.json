@@ -12,6 +12,12 @@
     "settings": [
       {
         "type": "image_picker",
+        "id": "home_logo",
+        "label": "Home page logo",
+        "info": "On transparent header"
+      },
+      {
+        "type": "image_picker",
         "id": "logo",
         "label": "t:settings_schema.logo.settings.logo_image.label"
       },

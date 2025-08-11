@@ -2,26 +2,6 @@
 {{ 'component-card.css' | asset_url | stylesheet_tag }}
 {{ 'component-price.css' | asset_url | stylesheet_tag }}
 
-{% if section.settings.image_shape == 'blob' %}
-  {{ 'mask-blobs.css' | asset_url | stylesheet_tag }}
-{%- endif -%}
-
-{%- unless section.settings.quick_add == 'none' -%}
-  {{ 'quick-add.css' | asset_url | stylesheet_tag }}
-{%- endunless -%}
-
-{%- if section.settings.quick_add == 'standard' -%}
-  <script src="{{ 'quick-add.js' | asset_url }}" defer="defer"></script>
-  <script src="{{ 'product-form.js' | asset_url }}" defer="defer"></script>
-{%- endif -%}
-
-{%- if section.settings.quick_add == 'bulk' -%}
-  <script src="{{ 'quick-add-bulk.js' | asset_url }}" defer="defer"></script>
-  <script src="{{ 'quantity-popover.js' | asset_url }}" defer="defer"></script>
-  <script src="{{ 'price-per-item.js' | asset_url }}" defer="defer"></script>
-  <script src="{{ 'quick-order-list.js' | asset_url }}" defer="defer"></script>
-{%- endif -%}
-
 {%- style -%}
   .section-{{ section.id }}-padding {
     padding-top: {{ section.settings.padding_top | times: 0.75 | round: 0 }}px;
@@ -158,26 +138,39 @@
                 {%- if forloop.index > 2 -%}
                   {%- assign lazy_load = true -%}
                 {%- endif -%}
-                <li
-                  class="grid__item{% if settings.animations_reveal_on_scroll %} scroll-trigger animate--slide-in{% endif %}"
-                  {% if settings.animations_reveal_on_scroll %}
-                    data-cascade
-                    style="--animation-order: {{ forloop.index }};"
-                  {% endif %}
-                >
-                  {% render 'card-product',
-                    card_product: product,
-                    media_aspect_ratio: section.settings.image_ratio,
-                    image_shape: section.settings.image_shape,
-                    show_secondary_image: section.settings.show_secondary_image,
-                    show_vendor: section.settings.show_vendor,
-                    show_rating: section.settings.show_rating,
-                    lazy_load: lazy_load,
-                    skip_styles: skip_card_product_styles,
-                    quick_add: section.settings.quick_add,
-                    section_id: section.id
-                  %}
-                </li>
+
+                {% assign cycle_mod = forloop.index0 | modulo: 3 %}
+                {% if cycle_mod == 0 %}
+                  <li
+                    class="grid__item grid_1{% if settings.animations_reveal_on_scroll %} scroll-trigger animate--slide-in{% endif %}"
+                    {% if settings.animations_reveal_on_scroll %}
+                      data-cascade
+                      style="--animation-order: {{ forloop.index }};"
+                    {% endif %}
+                  >
+                    {% render 'card-product-double', product: product %}
+                  </li>
+                {% elsif cycle_mod == 1 %}
+                  <li
+                    class="grid__item grid_2{% if settings.animations_reveal_on_scroll %} scroll-trigger animate--slide-in{% endif %}"
+                    {% if settings.animations_reveal_on_scroll %}
+                      data-cascade
+                      style="--animation-order: {{ forloop.index }};"
+                    {% endif %}
+                  >
+                    {% render 'card-product-single', product: product %}
+                  </li>
+                {% else %}
+                  <li
+                    class="grid__item grid_3{% if settings.animations_reveal_on_scroll %} scroll-trigger animate--slide-in{% endif %}"
+                    {% if settings.animations_reveal_on_scroll %}
+                      data-cascade
+                      style="--animation-order: {{ forloop.index }};"
+                    {% endif %}
+                  >
+                    {% render 'card-product-double', product: product %}
+                  </li>
+                {% endif %}
                 {%- assign skip_card_product_styles = true -%}
               {%- endfor -%}
             </ul>
@@ -194,6 +187,90 @@
     {{ 'mask-arch.svg' | inline_asset_content }}
   {%- endif -%}
 </div>
+
+<style>
+  #product-grid {
+    margin-top: 0;
+    gap: 10px;
+  }
+  .card__heading a:after {
+    content: unset;
+  }
+  .grid_1 {
+    width: calc(65% - 5px) !important;
+    max-width: calc(65% - 5px) !important;
+  }
+
+  .grid_2 {
+    width: calc(35% - 5px) !important;
+    max-width: calc(35% - 5px) !important;
+  }
+
+  .grid_3 {
+    width: 100% !important;
+    max-width: 100% !important;
+  }
+  .custom_card_media {
+    display: flex;
+    gap: 5px;
+  }
+  .custom_card_media.double img {
+    width: 50%;
+  }
+  .custom_card_media.double.has_single_img img {
+    width: 100%;
+  }
+  .custom_card_media img {
+    height: 500px;
+    width: 100%;
+    object-fit: cover;
+  }
+  .card__information {
+    text-align: center;
+  }
+
+  .card__heading {
+    color: #585a61;
+    text-transform: uppercase;
+    font-size: 16px;
+    font-weight: 400;
+  }
+
+  .price .price-item {
+    color: #585a61;
+    font-size: 12px;
+  }
+
+  @media only screen and (max-width: 1100px) {
+    .custom_card_media img {
+      height: 420px;
+    }
+  }
+
+  @media only screen and (max-width: 767px) {
+    #product-grid {
+      gap: 10px;
+    }
+    .grid_1,
+    .grid_2 {
+      width: calc(50% - 5px) !important;
+      max-width: calc(50% - 5px) !important;
+    }
+    .custom_card_media.double img {
+      width: 100%;
+    }
+    .custom_card_media.double img + img {
+      display: none;
+    }
+    .custom_card_media img {
+      height: 280px;
+      width: 100%;
+    }
+    .grid_3 .custom_card_media img {
+      height: 360px;
+    }
+  }
+</style>
 
 {% schema %}
 {

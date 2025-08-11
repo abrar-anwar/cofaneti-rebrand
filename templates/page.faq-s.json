@@ -1,0 +1,137 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "sections": {
+    "main": {
+      "type": "main-page",
+      "disabled": true,
+      "settings": {
+        "padding_top": 28,
+        "padding_bottom": 28
+      }
+    },
+    "collapsible_content_WcgCYb": {
+      "type": "collapsible-content",
+      "blocks": {
+        "collapsible_row_3nKPTz": {
+          "type": "collapsible_row",
+          "settings": {
+            "heading": "¿Por qué el tiempo de entrega es de 6 semanas?",
+            "icon": "none",
+            "row_content": "<p>Cada cabecero es una pieza única, creada a medida y con el máximo cariño. Al ser un producto casi de lujo, cada diseño se fabrica especialmente para ti, garantizando calidad y detalle en cada puntada. Por ello, el proceso de producción personalizado requiere aproximadamente 6 semanas para que puedas disfrutar de una obra exclusiva y hecha a tu medida.</p>",
+            "page": ""
+          }
+        },
+        "collapsible_row_CLJkAc": {
+          "type": "collapsible_row",
+          "settings": {
+            "heading": "¿Realizáis envíos?",
+            "icon": "none",
+            "row_content": "<p>¡Claro que sí! Realizamos envíos a todo el territorio nacional con un coste que varía entre 30€ y 45€ por cabecero, dependiendo de su tamaño. También ahcemo</p>",
+            "page": ""
+          }
+        },
+        "collapsible_row_9KP6kB": {
+          "type": "collapsible_row",
+          "settings": {
+            "heading": "¿Cómo se limpia el cabecero?",
+            "icon": "none",
+            "row_content": "<p>Para limpiar el cabecero, mezcla 1 parte de amoniaco con 3 partes de agua fría y frota suavemente la superficie con un paño humedecido. También puedes usar un cepillo de cerdas suaves para una limpieza más profunda. Luego, seca con un paño seco y evita la exposición directa al sol para conservar la textura y el color de la tela. </p>",
+            "page": ""
+          }
+        },
+        "collapsible_row_Fhwyrm": {
+          "type": "collapsible_row",
+          "settings": {
+            "heading": "¿Cómo sabre qué me habéis enviado el cabecero?",
+            "icon": "none",
+            "row_content": "<p>Te avisamos unos días antes del envío para asegurarnos de que la fecha te resulta perfecta. Además, recibirás un enlace de seguimiento por correo, para que puedas seguir el recorrido.</p>",
+            "page": ""
+          }
+        },
+        "collapsible_row_6FwCx8": {
+          "type": "collapsible_row",
+          "settings": {
+            "heading": "¿Hacéis telas desenfundables?",
+            "icon": "none",
+            "row_content": "<p>Por el momento, no ofrecemos telas desenfundables, aunque es un producto en el que estamos trabajando y que esperamos lanzar en el futuro. </p>",
+            "page": ""
+          }
+        },
+        "collapsible_row_NrVrVH": {
+          "type": "collapsible_row",
+          "settings": {
+            "heading": "¿El cabecero se cuelga?",
+            "icon": "none",
+            "row_content": "<p>Sí, nuestros cabeceros están diseñados para colgarse en la pared. De manera estándar, tienen una altura de 110 cm o 120 cm según el modelo, pero lo ideal es colocarlos a unos 150 cm para un resultado armonioso.<br/><br/>Si lo prefieres, también podemos hacer un cabecero a medida con 150 cm de altura para que encaje perfectamente en tu espacio. </p>",
+            "page": ""
+          }
+        },
+        "collapsible_row_eGjFPC": {
+          "type": "collapsible_row",
+          "settings": {
+            "heading": "¿Puedo enviar mi propia tela?",
+            "icon": "none",
+            "row_content": "<p>A día de hoy no aceptamos telas cliente excepto con algunos profesionales</p>",
+            "page": ""
+          }
+        },
+        "collapsible_row_zjjhea": {
+          "type": "collapsible_row",
+          "settings": {
+            "heading": "¿Tapizáis otros productos?",
+            "icon": "none",
+            "row_content": "<p>Actualmente, solo realizamos cabeceros y cojines. Si en el futuro ampliamos nuestra colección, lo anunciaremos para que estés al tanto de las novedades.</p>",
+            "page": ""
+          }
+        },
+        "collapsible_row_R6jyNz": {
+          "type": "collapsible_row",
+          "settings": {
+            "heading": "¿Por qué no se puede devolver un cabecero? (Exceptuando casos de rotura o parecidos)",
+            "icon": "none",
+            "row_content": "<p>Debido a que cada cabecero se fabrica a medida no aceptamos devoluciones, salvo en casos excepcionales de rotura o desperfectos durante el envío. Por ello, te animamos a que nos consultes cualquier duda o detalle antes de confirmar tu pedido, para que tu cabecero sea exactamente lo que imaginas.</p>",
+            "page": ""
+          }
+        }
+      },
+      "block_order": [
+        "collapsible_row_3nKPTz",
+        "collapsible_row_CLJkAc",
+        "collapsible_row_9KP6kB",
+        "collapsible_row_Fhwyrm",
+        "collapsible_row_6FwCx8",
+        "collapsible_row_NrVrVH",
+        "collapsible_row_eGjFPC",
+        "collapsible_row_zjjhea",
+        "collapsible_row_R6jyNz"
+      ],
+      "name": "t:sections.collapsible_content.presets.name",
+      "settings": {
+        "caption": "",
+        "heading": "Contenido desplegable",
+        "heading_size": "h1",
+        "heading_alignment": "center",
+        "layout": "none",
+        "container_color_scheme": "scheme-1",
+        "color_scheme": "",
+        "open_first_collapsible_row": false,
+        "image_ratio": "adapt",
+        "desktop_layout": "image_second",
+        "padding_top": 36,
+        "padding_bottom": 36
+      }
+    }
+  },
+  "order": [
+    "main",
+    "collapsible_content_WcgCYb"
+  ]
+}

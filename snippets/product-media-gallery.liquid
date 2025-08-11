@@ -58,7 +58,7 @@
     </a>
     <ul
       id="Slider-Gallery-{{ section.id }}"
-      class="product__media-list contains-media grid grid--peek list-unstyled slider slider--mobile"
+      class="product__media-list contains-media grid grid--peek list-unstyled slider {% unless section.settings.mobile_thumbnails == 'stack'%}slider--mobile{% endunless %}"
       role="list"
     >
       {%- if product.selected_or_first_available_variant.featured_media != null -%}
@@ -125,7 +125,7 @@
         {%- endunless -%}
       {%- endfor -%}
     </ul>
-    <div class="slider-buttons quick-add-hidden{% if hide_mobile_slider %} small-hide{% endif %}">
+    <div class="slider-buttons quick-add-hidden{% if hide_mobile_slider or section.settings.mobile_thumbnails == 'stack' %} small-hide{% endif %}">
       <button
         type="button"
         class="slider-button slider-button--prev"
@@ -330,3 +330,25 @@
     </slider-component>
   {%- endif -%}
 </media-gallery>
+
+{% if section.settings.mobile_thumbnails == 'stack' %}
+  <style>
+    @media only screen and (max-width: 989px) {
+      .grid__item.product__media-wrapper.mobile_media_stack {
+        height: 55vh;
+        overflow-x: hidden;
+      }
+      .grid__item.product__media-wrapper {
+        margin-top: 0;
+      }
+      .product__media-icon,
+      .thumbnail__badge {
+        left: 5.2rem;
+      }
+      .product__media-item:nth-child(1) .product__media-icon,
+      .product__media-item:nth-child(1) .thumbnail__badge {
+        left: 3.2rem;
+      }
+    }
+  </style>
+{% endif %}

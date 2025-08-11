@@ -60,6 +60,8 @@
           {%- render 'gift-card-recipient-form', product: product, form: form, section: section -%}
         {%- endif -%}
 
+        {% render 'design', block: block, section: section %}
+
         <div class="product-form__buttons">
           {%- liquid
             assign check_against_inventory = true

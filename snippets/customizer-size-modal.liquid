@@ -1,0 +1,231 @@
+<div id="customSizeModal" class="size-modal">
+  <div class="size-modal-wrap">
+    <div class="size-modal-content">
+      <div class="custom_size_form">
+        <span class="size-close">&times;</span>
+        <h2>{{ section.settings.custom_measurment_heading }}</h2>
+        <div class="length_field">
+          <span> {{ section.settings.custom_measurment_lenght }}: </span><input min="70" max="220" type="number">
+        </div>
+        <div class="width_field">
+          <span> {{ section.settings.custom_measurment_width }}: </span><input type="number">
+        </div>
+        <div class="custom-size-wrap">
+          <button class="submit-custom-measurement button button--primary">
+            {{ section.settings.custom_measurment_submit }}
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+{% stylesheet %}
+  .size-modal {
+    display: none;
+    position: fixed;
+    z-index: 1000;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    background-color: #000c;
+  }
+  .size-modal-wrap {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+  }
+  .size-modal-content {
+    margin: auto;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+  }
+  .size-close {
+    position: absolute;
+    top: -5px;
+    right: -10px;
+    color: #000000c2;
+    font-size: 30px;
+    font-weight: 700;
+    cursor: pointer;
+    z-index: 1001;
+  }
+  .custom_size_form {
+    background: #fff;
+    padding: 50px;
+    text-align: center;
+    position: relative;
+  }
+  .custom_size_form h2 {
+    margin-top: 0;
+  }
+  .custom_size_form input {
+    min-width: 150px;
+    max-width: 150px;
+  }
+  .custom_size_form span {
+    display: inline-block;
+    width: 70px !important;
+  }
+  button.submit-custom-measurement {
+    min-height: auto;
+    padding: 10px;
+    text-transform: uppercase;
+    font-size: 12px;
+    margin-top: 25px;
+  }
+{% endstylesheet %}
+
+<script>
+  const sizeBlock = document.querySelector('[data-blockname="size__block"]');
+  const sizeInputs = document.querySelectorAll('.customizer_opt1 input[type=radio]');
+  const customSizeModal = document.getElementById('customSizeModal');
+  const modalWrap = document.querySelector('.size-modal-wrap');
+  const modalContent = document.querySelector('.size-modal-content');
+  const modalCloseBtn = document.querySelector('.size-close');
+  const submitBtn = document.querySelector('.submit-custom-measurement');
+  const lengthInput = document.querySelector('.length_field input');
+  const widthInput = document.querySelector('.width_field input');
+  const customSizeRadio = document.querySelector('.custom-size');
+  const customSizeLabel = customSizeRadio?.closest('label');
+  const customSizeTitle = customSizeLabel?.querySelector('.option-title');
+
+  // Open modal on selecting "Custom Size"
+  if (sizeInputs && customSizeModal) {
+    sizeInputs.forEach((sizeInput) => {
+      sizeInput.addEventListener('change', function () {
+        if (this.classList.contains('custom-size')) {
+          customSizeModal.style.display = 'block';
+        } else {
+          customSizeModal.style.display = 'none';
+          const option = this.closest('[data-option-price]');
+          if (option) {
+            option.dataset.optionPrice = this.dataset.price;
+          }
+        }
+        updateFooterSummary();
+      });
+    });
+  }
+
+  if (sizeInputs && customSizeModal && customSizeModal) {
+    customSizeRadio.addEventListener('click', function () {
+      customSizeModal.style.display = 'block';
+    });
+  }
+
+  // Close modal on 'X' click
+  if (modalCloseBtn) {
+    modalCloseBtn.addEventListener('click', () => {
+      customSizeModal.style.display = 'none';
+    });
+  }
+
+  // Close modal on clicking outside modal content
+  if (modalWrap) {
+    modalWrap.addEventListener('click', (event) => {
+      if (!modalContent.contains(event.target)) {
+        customSizeModal.style.display = 'none';
+      }
+    });
+  }
+
+  // Handle custom size submission
+  if (submitBtn) {
+    submitBtn.addEventListener('click', function (e) {
+      e.preventDefault();
+
+      const length = parseInt(lengthInput.value, 0);
+      const width = parseInt(widthInput.value, 0);
+
+      if (isNaN(length) || isNaN(width) || length < 70 || length > 220 || width < 70 || width > 220) {
+        alert('Please enter valid measurements between 70 and 220 cm.');
+        return;
+      }
+
+      const sizeString = `${length}cm X ${width}cm`;
+
+      if (customSizeRadio) {
+        customSizeRadio.value = sizeString;
+        customSizeRadio.checked = true;
+      }
+
+      if (customSizeTitle) {
+        customSizeTitle.textContent = sizeString;
+      }
+
+      let customPrice = calculateCustomPrice(length, width);
+
+      if (window.marketInfo.countryCode === 'FR' && window.marketInfo.percentIncrease) {
+        const increaseAmount = (customPrice * window.marketInfo.percentIncrease) / 100;
+        customPrice += increaseAmount;
+      }
+
+      updateFooterSummary();
+
+      customSizeModal.style.display = 'none';
+    });
+
+    function calculateCustomPrice(customLength, customHeight) {
+      let basePrice = 0;
+
+      // Step 1: Calculate price based on length
+      const nextStandardLength = getNextStandardLength(customLength);
+      if (customLength === nextStandardLength.length) {
+        basePrice = nextStandardLength.price;
+      } else {
+        basePrice = nextStandardLength.price + 40;
+      }
+
+      console.log(`Base Price based on length: €${basePrice}`);
+
+      // Step 2: Adjust price based on height
+      const standardHeight = nextStandardLength.height;
+      let heightPriceAdjustment = 0;
+
+      // Adjust for height based on standard height
+      if (standardHeight === 110) {
+        const heightDifference = customHeight - standardHeight;
+
+        if (heightDifference > 0 && heightDifference <= 20) {
+          heightPriceAdjustment = 40;
+        } else if (heightDifference > 20) {
+          heightPriceAdjustment = 55;
+        }
+      } else if (standardHeight === 120) {
+        const heightDifference = customHeight - standardHeight;
+
+        if (heightDifference > 0) {
+          heightPriceAdjustment = 50;
+        } else {
+          heightPriceAdjustment = 10;
+        }
+      }
+
+      console.log(`Height adjustment: €${heightPriceAdjustment}`);
+      basePrice += heightPriceAdjustment;
+
+      console.log(`Final calculated price: €${basePrice}`);
+      document
+        .querySelectorAll('[data-blockname=size__block] [data-option-price]')
+        .forEach((e) => (e.dataset.optionPrice = basePrice));
+      return basePrice;
+    }
+
+    function getNextStandardLength(customLength) {
+      // Find the next standard length that is greater than or equal to customLength
+      for (let i = 0; i < standardPrices.length; i++) {
+        if (standardPrices[i].length >= customLength) {
+          return standardPrices[i];
+        }
+      }
+      // Return the last standard price for lengths greater than 220 cm
+      return standardPrices[standardPrices.length - 1];
+    }
+  }
+</script>

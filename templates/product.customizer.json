@@ -1,0 +1,375 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "sections": {
+    "main": {
+      "type": "main-product",
+      "blocks": {
+        "text_KKyM4k": {
+          "type": "text",
+          "settings": {
+            "text": "<strong>Personaliza este </strong><strong>{{ product.title }}</strong>",
+            "text_style": "subtitle",
+            "small_font": false
+          }
+        },
+        "price_64dfEH": {
+          "type": "price",
+          "settings": {}
+        },
+        "text_bP4BG3": {
+          "type": "text",
+          "settings": {
+            "text": "<strong>Escoge una opción en cada apartado</strong>",
+            "text_style": "body",
+            "small_font": false
+          }
+        },
+        "text_HVwFXn": {
+          "type": "text",
+          "settings": {
+            "text": "Un cabecero es un mueble muy personal con el que se convive a diario y que ha de durar muchos años. Desde Cofaneti estaremos encantados de atenderte por WhatsApp y acompañarte durante todo el proceso",
+            "text_style": "body",
+            "small_font": true
+          }
+        },
+        "variant_picker": {
+          "type": "variant_picker",
+          "settings": {
+            "picker_type": "button",
+            "swatch_shape": "none"
+          }
+        },
+        "buy_buttons": {
+          "type": "buy_buttons",
+          "settings": {
+            "show_dynamic_checkout": false,
+            "show_gift_card_recipient": true
+          }
+        },
+        "collapsible_tab_zbKCYk": {
+          "type": "collapsible_tab",
+          "settings": {
+            "heading": "COMPOSICIÓN Y CALIDADES",
+            "icon": "none",
+            "content": "<p>Nuestros cabeceros se fabrican artesanalmente con madera maciza secada al horno, espuma de alta densidad y tejidos certificados OEKO‑TEX seleccionados por su textura y solidez del color. Cada pieza se ensambla con refuerzos en las esquinas y costuras dobles para garantizar una estructura estable y un acabado impecable y duradero.</p>",
+            "page": ""
+          }
+        },
+        "collapsible_tab_gMNmYx": {
+          "type": "collapsible_tab",
+          "settings": {
+            "heading": "CUIDADOS Y MANTENIMIENTO",
+            "icon": "none",
+            "content": "<p>Aspirar regularmente el tapizado con un accesorio de cepillo suave, absorber los derrames de inmediato con un paño limpio y utilizar un limpiador de tapicería a base de agua para limpiezas más profundas. Si el cabecero recibe luz solar directa, gírelo una vez al año para evitar decoloraciones; evite productos químicos agresivos o herramientas abrasivas que puedan dañar las fibras o la estructura.</p>",
+            "page": ""
+          }
+        },
+        "collapsible_tab_3YxTEn": {
+          "type": "collapsible_tab",
+          "settings": {
+            "heading": "ENVÍOS, CAMBIOS Y CANCELACIONES",
+            "icon": "none",
+            "content": "<p>Cada cabecero se fabrica bajo pedido y se envía en un plazo de 4‑6 semanas mediante transporte asegurado con entrega en la habitación. Puede cancelar o modificar su compra dentro de las primeras 48 horas para recibir un reembolso completo; después de iniciado el proceso de producción, las cancelaciones conllevan una tarifa de reposición. Si su cabecero llega dañado o necesita otra medida, contáctenos en un plazo de 14 días para gestionar un cambio o devolución sin coste.</p>",
+            "page": ""
+          }
+        }
+      },
+      "block_order": [
+        "text_KKyM4k",
+        "price_64dfEH",
+        "text_bP4BG3",
+        "text_HVwFXn",
+        "variant_picker",
+        "buy_buttons",
+        "collapsible_tab_zbKCYk",
+        "collapsible_tab_gMNmYx",
+        "collapsible_tab_3YxTEn"
+      ],
+      "disabled": true,
+      "custom_css": [
+        "p.product__text.inline-richtext {text-align: center;}",
+        ".product .price__container {text-align: center; display: flex; align-items: center; justify-content: center; color: rgba(var(--color-foreground), 0.7);}"
+      ],
+      "settings": {
+        "enable_sticky_info": true,
+        "color_scheme": "scheme-1",
+        "media_size": "medium",
+        "constrain_to_viewport": false,
+        "media_fit": "cover",
+        "gallery_layout": "stacked",
+        "mobile_thumbnails": "stack",
+        "media_position": "left",
+        "image_zoom": "none",
+        "hide_variants": true,
+        "enable_video_looping": false,
+        "padding_top": 0,
+        "padding_bottom": 12,
+        "option_identifier": "Medida",
+        "model_title": "Modelo",
+        "model1_name": "Matilda",
+        "model1": "shopify://shop_images/shape_1.png",
+        "model2_name": "Olivia",
+        "model2": "shopify://shop_images/shape_2.png",
+        "model3_name": "Sofia",
+        "model3": "shopify://shop_images/shape_3.png",
+        "model4_name": "Model 4",
+        "model4": "shopify://shop_images/shape_5.png",
+        "model5_name": "",
+        "info": "<strong>CUSTOMIZADO  cm x cm</strong>\n<br>Las medidas estándares están pensadas para que el cabecero vaya colgado, en caso  de que no se ajusten a tu dormitorio, ya sea por el ancho o por el alto, o por los dos, damos la opción de hacerlo a la medida que tu quieras."
+      }
+    },
+    "customizer_VhhNQe": {
+      "type": "customizer",
+      "name": "Customizer Section",
+      "settings": {
+        "heading": "Personaliza este Cadaqués",
+        "subheading": "Escoge una opción en cada apartado",
+        "text": "Un cabecero es un mueble muy personal con el que se convive a diario y que ha de durar muchos años. Desde Cofaneti\n  estaremos encantados de atenderte por WhatsApp y acompañarte durante todo el proceso",
+        "heading1": "Medida",
+        "text1": "<strong>CUSTOMIZADO cm x cm</strong><br>\nLas medidas estándares están pensadas para que el cabecero vaya colgado, en caso  de que no se ajusten a tu dormitorio, ya sea por el ancho o por el alto, o por los dos, damos la opción de hacerlo a la medida que tu quieras.",
+        "size_entries": [
+          "size-1",
+          "size-2",
+          "size-3",
+          "size-4",
+          "size-5",
+          "size-6",
+          "size-7",
+          "size-8",
+          "size-9"
+        ],
+        "enable_custom_size": true,
+        "custom_size_btn_text": "Custom Size",
+        "custom_measurment_heading": "Enter Measurements in CM",
+        "custom_measurment_lenght": "Lenght",
+        "custom_measurment_width": "Width",
+        "custom_measurment_submit": "Submit",
+        "heading2": "Model",
+        "text2": "Description will goes here for this block if needed",
+        "heading3": "Tela frontal",
+        "text3": "Aprieta en cada grupo para ver la selección de telas",
+        "fabric_group1_heading": "Telas Signature Collection",
+        "fabric_group1_price": 40,
+        "fabric_group1_entries": [
+          "tela-rayas-espiga-verde",
+          "tela-rayas-espiga-gris",
+          "tela-rayas-espiga-azul",
+          "tela-geo-block-printed-mostaza-2",
+          "mini-rayas-negras",
+          "mini-rayas-granates",
+          "loneta-tejida-granate",
+          "loneta-rayas-verdes",
+          "raya-clasica-beige",
+          "triple-raya-fina-beige",
+          "raya-de-espiga-beige-oscuro",
+          "tela-lino-cuadros-vichy-beige",
+          "triple-raya-fina-verde-agua",
+          "triple-raya-fina-teja",
+          "loneta-algodon-rayas-gruesas-verdes-sobre-fondo-natural",
+          "tela-lino-raya-amarilla-mahon"
+        ],
+        "fabric_group2_heading": "Telas Prime Collection",
+        "fabric_group2_price": 60,
+        "fabric_group2_entries": [
+          "tela-raya-arequipa-verde",
+          "tela-lino-geometrico-salmon-2",
+          "l-1200219-edit",
+          "tela-algodon-y-lino-azul-marino"
+        ],
+        "fabric_group3_heading": "Telas Premium Collection",
+        "fabric_group3_price": 80,
+        "fabric_group3_entries": [
+          "tela-lino-terracota-doble-ancho",
+          "tela-lino-rayas-indiana-azul",
+          "lino-viscosa-verde-2",
+          "lino-viscosa-verde-botella-2",
+          "lino-rayas-indiana-azulon",
+          "tela-lino-y-viscosa-color-natural",
+          "terciopelo-pequenos-brotes",
+          "terciopelo-trama-organica-mostaza-sobre-fondo-verde",
+          "lino-flores-de-ensueno",
+          "viscolino-gris-piedra",
+          "zig-zag-azul-marino",
+          "tela-zig-zag-burdeos",
+          "raya-punto-aterciopelado-azul-celeste",
+          "raya-punto-aterciopelado-verde-botella-y-mostaza",
+          "terciopelo-rosa",
+          "terciopelo-lima",
+          "terciopelo-marron-chocolate",
+          "terciopelo-lima-1",
+          "terciopelo-teja",
+          "terciopelo-verde-oliva",
+          "terciopelo-verde-caqui",
+          "terciopelo-verde-grisaceo",
+          "terciopelo-azul-grisaceo",
+          "terciopelo-azul-marino",
+          "terciopeloburdeos",
+          "terciopelo-verde-botella",
+          "viscolino-raya-tejida-teja",
+          "raya-punto-aterciopelado-mostaza-y-gris"
+        ],
+        "fabric_group4_heading": "",
+        "fabric_group4_price": 105,
+        "fabric_group4_entries": [
+          "raya-punto-aterciopelado-azul-celeste",
+          "raya-punto-aterciopelado-verde-botella-y-mostaza"
+        ],
+        "heading4": "Tela banda lateral",
+        "text4": "Puedes escoger una tela en contraste para la banda del cabecero.",
+        "lband_enable_disable": true,
+        "lband_disabling_text": "No necesito, gracias!",
+        "lband_disabling_desc": "Sin Banda Lateral",
+        "lband_group1_heading": "Banda Lateral Signature Collection",
+        "lband_group1_price": 50,
+        "lband_group1_entries": [
+          "tela-rayas-espiga-verde",
+          "tela-rayas-espiga-gris",
+          "tela-rayas-espiga-azul",
+          "mini-rayas-negras",
+          "mini-rayas-granates",
+          "loneta-tejida-granate",
+          "loneta-rayas-verdes",
+          "tela-lino-cuadros-vichy-beige",
+          "triple-raya-fina-beige",
+          "raya-clasica-beige",
+          "raya-de-espiga-beige-oscuro",
+          "triple-raya-fina-verde-agua",
+          "triple-raya-fina-teja",
+          "loneta-algodon-rayas-gruesas-verdes-sobre-fondo-natural",
+          "tela-lino-raya-amarilla-mahon"
+        ],
+        "lband_group2_heading": "Banda Lateral Prime Collection",
+        "lband_group2_price": 70,
+        "lband_group2_entries": [
+          "tela-algodon-y-lino-azul-marino",
+          "tela-raya-arequipa-verde"
+        ],
+        "lband_group3_heading": "Banda Lateral Premium Collection",
+        "lband_group3_price": 85,
+        "lband_group3_entries": [
+          "lino-viscosa-verde-2",
+          "lino-viscosa-verde-botella-2",
+          "tela-lino-terracota-doble-ancho",
+          "tela-lino-y-viscosa-color-natural",
+          "terciopelo-trama-organica-mostaza-sobre-fondo-verde",
+          "viscolino-gris-piedra",
+          "terciopelo-rosa",
+          "terciopelo-lima",
+          "terciopelo-marron-chocolate",
+          "terciopelo-lima-1",
+          "terciopelo-teja",
+          "terciopelo-verde-oliva",
+          "terciopelo-verde-caqui",
+          "terciopelo-verde-grisaceo",
+          "terciopelo-azul-grisaceo",
+          "terciopelo-azul-marino",
+          "terciopeloburdeos",
+          "terciopelo-verde-botella",
+          "viscolino-raya-tejida-teja",
+          "lino-verde-caqui",
+          "lino-burdeos",
+          "raya-punto-aterciopelado-mostaza-y-gris",
+          "raya-punto-aterciopelado-verde-botella-y-mostaza",
+          "raya-punto-aterciopelado-azul-celeste"
+        ],
+        "lband_group4_heading": "",
+        "lband_group4_price": 40,
+        "lband_group4_entries": [],
+        "heading5": "Ribete",
+        "text5": "Si escoges hacer el ribete en contraste se desplegarán las opciones",
+        "piping_group1_heading": "Ribete con la tela frontal",
+        "piping_group1_img": "shopify://shop_images/piping1.jpg",
+        "piping_group1_price": 0,
+        "piping_group1_entries": [],
+        "piping_group1_info": "",
+        "piping_group2_heading": "Ribete en contraste (+10€)",
+        "piping_group2_img": "shopify://shop_images/piping2.jpg",
+        "piping_group2_price": 10,
+        "piping_group2_entries": [
+          "color-1",
+          "color-2",
+          "color-4",
+          "marron",
+          "verde-menta-terciopelo",
+          "arena",
+          "negro",
+          "rosa-flojo",
+          "azul-celeste",
+          "blanco",
+          "no-se-que-color",
+          "no-se-que-color-1",
+          "terciopelo-rosa",
+          "terciopelo-lima",
+          "negro-terciopelo",
+          "lino-algodon-azul-marino",
+          "viscolino-gris-piedra",
+          "terciopelo-verde-botella",
+          "terciopelo-burdeos",
+          "terciopelo-azul-marino",
+          "terciopelo-azul-grisaceo",
+          "terciopelo-verde-grisaceo",
+          "terciopelo-verde-caqui",
+          "terciopelo-verde-oliva",
+          "terciopelo-teja",
+          "terciopelo-mostaza",
+          "terciopelo-marron-chocolate",
+          "lino-color-natural",
+          "lino-burdeos"
+        ],
+        "piping_group2_info": "Ribete con la tela de la banda lateral",
+        "piping_group3_heading": "Ribete con la tela de la banda",
+        "piping_group3_img": "shopify://shop_images/piping3.jpg",
+        "piping_group3_price": 0,
+        "piping_group3_entries": [],
+        "piping_group4_heading": "Doble ribete en contraste (+40€)",
+        "piping_group4_img": "shopify://shop_images/piping4.jpg",
+        "piping_group4_price": 40,
+        "piping_group4_entries": [
+          "color-1",
+          "color-2",
+          "color-3",
+          "color-4",
+          "marron",
+          "verde-menta-terciopelo",
+          "arena",
+          "negro",
+          "rosa-flojo",
+          "blanco",
+          "azul-celeste",
+          "no-se-que-color",
+          "no-se-que-color-1",
+          "terciopelo-rosa",
+          "terciopelo-lima",
+          "negro-terciopelo",
+          "lino-algodon-azul-marino",
+          "viscolino-gris-piedra",
+          "terciopelo-verde-botella",
+          "terciopelo-burdeos",
+          "terciopelo-azul-marino",
+          "terciopelo-azul-grisaceo",
+          "terciopelo-verde-grisaceo",
+          "terciopelo-verde-caqui",
+          "terciopelo-verde-oliva",
+          "terciopelo-teja",
+          "terciopelo-mostaza",
+          "terciopelo-marron-chocolate",
+          "lino-color-natural",
+          "lino-burdeos"
+        ],
+        "price_increase": 20
+      }
+    }
+  },
+  "order": [
+    "main",
+    "customizer_VhhNQe"
+  ]
+}

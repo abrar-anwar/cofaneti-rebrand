@@ -1,0 +1,25 @@
+<div class="custom__card">
+  <a href="{{ product.url }}">
+    <div class="custom_card_media double {% if product.media[1] == null %}has_single_img{% endif %}">
+      {% if product.featured_media %}
+        <img src="{{ product.featured_image | image_url: width: 800 }}">
+      {% else %}
+        <div>
+          {{ 'product-apparel-1' | placeholder_svg_tag: 'placeholder-svg' }}
+        </div>
+      {% endif %}
+      {% if product.media[1] != null %}
+        <img src="{{ product.media[1] | image_url: width: 800 }}">
+      {% endif %}
+    </div>
+  </a>
+
+  <div class="card__information">
+    <h3 class="card__heading h5">
+      <a href="{{ product.url }}" class="full-unstyled-link">
+        {{ product.title }}
+      </a>
+    </h3>
+    {% render 'price', product: product, price_class: '', show_compare_at_price: true %}
+  </div>
+</div>

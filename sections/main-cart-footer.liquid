@@ -17,6 +17,22 @@
   }
 {%- endstyle -%}
 
+{% liquid
+  assign has_custom_item = false
+  assign custom_cart_total = 0
+
+  for item in cart.items
+    if item.properties.Price
+      assign has_custom_item = true
+      assign custom_price_cents = item.properties.Price | times: 100
+      assign item_subtotal_cents = custom_price_cents | times: item.quantity
+      assign custom_cart_total = custom_cart_total | plus: item_subtotal_cents
+    else
+      assign custom_cart_total = custom_cart_total | plus: item.line_price
+    endif
+  endfor
+%}
+
 <div
   class="gradient color-{{ section.settings.color_scheme }}{% if cart == empty %} is-empty{% endif %}"
   id="main-cart-footer"
@@ -60,7 +76,13 @@
 
                 <div class="totals">
                   <h2 class="totals__total">{{ 'sections.cart.estimated_total' | t }}</h2>
-                  <p class="totals__total-value">{{ cart.total_price | money_with_currency }}</p>
+                  <p class="totals__total-value">
+                    {% if has_custom_item %}
+                      {{ custom_cart_total | money_with_currency }}
+                    {% else %}
+                      {{ cart.total_price | money_with_currency }}
+                    {% endif %}
+                  </p>
                 </div>
 
                 <small class="tax-note caption-large rte">
@@ -105,18 +127,24 @@
               </div>
             {%- else -%}
               <div class="cart__ctas" {{ block.shopify_attributes }}>
-                <button
-                  type="submit"
-                  id="checkout"
-                  class="cart__checkout-button button"
-                  name="checkout"
-                  {% if cart == empty %}
-                    disabled
-                  {% endif %}
-                  form="cart"
-                >
-                  {{ 'sections.cart.checkout' | t }}
-                </button>
+                {% if has_custom_item %}
+                  <button class="trigger_draft_api cart__checkout-button button">
+                    {{ 'sections.cart.checkout' | t }}
+                  </button>
+                {% else %}
+                  <button
+                    type="submit"
+                    id="checkout"
+                    class="cart__checkout-button button"
+                    name="checkout"
+                    {% if cart == empty %}
+                      disabled
+                    {% endif %}
+                    form="cart"
+                  >
+                    {{ 'sections.cart.checkout' | t }}
+                  </button>
+                {% endif %}
               </div>
 
               {%- if additional_checkout_buttons -%}
@@ -133,6 +161,49 @@
   </div>
 </div>
 
+{% if has_custom_item %}
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      const checkoutButton = document.querySelector('.trigger_draft_api');
+      if (!checkoutButton) return;
+
+      checkoutButton.addEventListener('click', (event) => {
+        event.preventDefault();
+
+        // Disable the button and change its text
+        checkoutButton.disabled = true;
+        const originalText = checkoutButton.textContent;
+        checkoutButton.textContent = 'Checking Out';
+
+        fetch('/cart.js', {
+          method: 'GET',
+          headers: { 'Content-Type': 'application/json' },
+        })
+          .then((response) => response.json())
+          .then((cartData) => {
+            return fetch('https://coffeneti-app.vercel.app/create-draft-order', {
+              method: 'POST',
+              headers: { 'Content-Type': 'application/json' },
+              body: JSON.stringify(cartData),
+            });
+          })
+          .then((response) => response.json())
+          .then((data) => {
+            setTimeout(() => {
+              console.log('Draft Order Invoice URL:', data.invoice_url);
+              window.location.href = data.invoice_url;
+            }, 2000);
+          })
+          .catch((error) => {
+            console.error('Error creating draft order:', error);
+            checkoutButton.disabled = false;
+            checkoutButton.textContent = originalText;
+          });
+      });
+    });
+  </script>
+{% endif %}
+
 {% schema %}
 {
   "name": "t:sections.main-cart-footer.name",
@@ -147,7 +218,7 @@
     {
       "type": "header",
       "content": "t:sections.all.padding.section_padding_heading"
-    },    
+    },
     {
       "type": "range",
       "id": "padding_top",

@@ -11,6 +11,7 @@
   "sections": {
     "banner": {
       "type": "main-collection-banner",
+      "disabled": true,
       "settings": {
         "show_collection_description": false,
         "show_collection_image": false,
@@ -18,7 +19,7 @@
       }
     },
     "product-grid": {
-      "type": "main-collection-product-grid",
+      "type": "masonary-collection-product-grid",
       "settings": {
         "products_per_page": 16,
         "columns_desktop": 3,
@@ -26,14 +27,14 @@
         "color_scheme": "scheme-1",
         "image_ratio": "portrait",
         "image_shape": "default",
-        "show_secondary_image": false,
+        "show_secondary_image": true,
         "show_vendor": false,
         "show_rating": false,
         "quick_add": "none",
-        "enable_filtering": true,
+        "enable_filtering": false,
         "filter_type": "horizontal",
-        "enable_sorting": true,
-        "padding_top": 36,
+        "enable_sorting": false,
+        "padding_top": 0,
         "padding_bottom": 36
       }
     }

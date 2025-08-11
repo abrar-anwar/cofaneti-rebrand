@@ -1,0 +1,40 @@
+<div class="customizer_opt customizer_opt4" data-option-price="">
+  <div class="customizer_optTitle">
+    <h2>{{ section.settings.heading4 }}</h2>
+  </div>
+  <p class="config_opt_descrioption">{{ section.settings.text4 }}</p>
+
+  <!-- Tabs -->
+  <div class="customizer-tabs">
+    {% if section.settings.lband_group1_heading != blank %}
+      <button class="customizer-tab" data-tab="lband-{{ section.settings.lband_group1_heading | handleize }}">
+        {{ section.settings.lband_group1_heading }}
+      </button>
+    {% endif %}
+    {% if section.settings.lband_group2_heading != blank %}
+      <button class="customizer-tab" data-tab="lband-{{ section.settings.lband_group2_heading | handleize }}">
+        {{ section.settings.lband_group2_heading }}
+      </button>
+    {% endif %}
+    {% if section.settings.lband_group3_heading != blank %}
+      <button class="customizer-tab" data-tab="lband-{{ section.settings.lband_group3_heading | handleize }}">
+        {{ section.settings.lband_group3_heading }}
+      </button>
+    {% endif %}
+    {% if section.settings.lband_group4_heading != blank %}
+      <button class="customizer-tab" data-tab="lband-{{ section.settings.lband_group4_heading | handleize }}">
+        {{ section.settings.lband_group4_heading }}
+      </button>
+    {% endif %}
+    {% if section.settings.lband_enable_disable != blank %}
+      <button class="customizer-tab" data-tab="lband-{{ section.settings.lband_disabling_text | handleize }}">
+        {{ section.settings.lband_disabling_text }}
+      </button>
+    {% endif %}
+  </div>
+
+  <div class="selected_opt_summay">
+    <p>{{ section.settings.title_tobeselect }}</p>
+    <h5>{{ section.settings.price_tobeselect }}</h5>
+  </div>
+</div>

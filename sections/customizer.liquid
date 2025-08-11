@@ -1,0 +1,614 @@
+{% liquid
+  if localization.country.iso_code == 'FR'
+    assign is_french = true
+  else
+    assign is_french = false
+  endif
+%}
+
+<script>
+  window.marketInfo = {
+     countryCode: "{{ localization.country.iso_code }}",
+     countryName: "{{ localization.country.name }}",
+     percentIncrease: {{ section.settings.price_increase }}
+   };
+
+   window.general = {
+    addingToCart: {{ section.settings.summary_addingtocart | json }}
+  };
+
+   const standardPrices = [
+     {% for size in shop.metaobjects.sizes.values %}
+       { length: {{ size.length.value }},
+         height: {{ size.height.value }},
+         price: {{ size.price.value | money_without_currency | replace: ',', '.' }}
+       }{% unless forloop.last %},{% endunless %}
+     {% endfor %}
+   ];
+</script>
+
+<input type="hidden" name="id" value="{{ product.selected_or_first_available_variant.id }}">
+{{ 'customizer.css' | asset_url | stylesheet_tag }}
+{{ 'component-accordion.css' | asset_url | stylesheet_tag }}
+<link rel="stylesheet" href="https://unpkg.com/swiper/swiper-bundle.min.css">
+
+<div class="customizer_main">
+  <div class="customizer_media">
+    {% render 'customizer-media', section: section %}
+  </div>
+
+  <div class="customizer_info">
+    <div class="customizer-container">
+      <div class="swiper">
+        <div class="swiper-wrapper">
+          <div class="customizer_textBlock swiper-slide">
+            {% render 'customizer-main', section: section %}
+          </div>
+
+          <div class="customizer_optionBlock swiper-slide" data-blockName="size__block">
+            {% render 'customizer-size', section: section, french_market: is_french %}
+          </div>
+
+          <div class="customizer_optionBlock swiper-slide" data-blockName="model__block">
+            {% render 'customizer-model', section: section, french_market: is_french %}
+          </div>
+
+          <div class="customizer_optionBlock swiper-slide" data-blockName="fabric__block">
+            {% render 'customizer-fabric', section: section, french_market: is_french %}
+          </div>
+
+          <div class="customizer_optionBlock swiper-slide" data-blockName="lband__block">
+            {% render 'customizer-lband', section: section, french_market: is_french %}
+          </div>
+
+          <div class="customizer_optionBlock swiper-slide" data-blockName="piping__block">
+            {% render 'customizer-piping', section: section, french_market: is_french %}
+          </div>
+
+          <div class="customizer_accordBlock swiper-slide">
+            {% render 'customizer-accordion', section: section %}
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="customizer_footerBlock">
+      {% render 'customizer-footer', section: section %}
+    </div>
+  </div>
+</div>
+
+<script src="https://unpkg.com/swiper/swiper-bundle.min.js"></script>
+<script src="{{ 'customizer.js' | asset_url }}"></script>
+
+{% schema %}
+{
+  "name": "Customizer Section",
+  "class": "customizer_sec page-width",
+  "tag": "section",
+  "disabled_on": {
+    "groups": ["header", "footer"]
+  },
+  "settings": [
+    {
+      "type": "header",
+      "content": "Section Header"
+    },
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Heading",
+      "default": "Customise this Headboard"
+    },
+    {
+      "type": "textarea",
+      "id": "subheading",
+      "label": "Sub Heading",
+      "default": "Configure this headboard using the options below"
+    },
+    {
+      "type": "textarea",
+      "id": "text",
+      "label": "Body",
+      "default": "Configure this headboard using the options below"
+    },
+    {
+      "type": "header",
+      "content": "Size Section"
+    },
+    {
+      "type": "text",
+      "id": "heading1",
+      "label": "Heading",
+      "default": "Medida"
+    },
+    {
+      "type": "textarea",
+      "id": "text1",
+      "label": "Description",
+      "default": "Description goes here"
+    },
+    {
+      "type": "metaobject_list",
+      "id": "size_entries",
+      "label": "Size Entries",
+      "metaobject_type": "sizes"
+    },
+    {
+      "type": "checkbox",
+      "id": "enable_custom_size",
+      "label": "Enable Custom Size",
+      "default": true
+    },
+    {
+      "type": "text",
+      "id": "custom_size_btn_text",
+      "label": "Custom Size Button Label",
+      "default": "Custom Size",
+      "info": "label of custom size button"
+    },
+    {
+      "type": "text",
+      "id": "custom_measurment_heading",
+      "label": "Custom Measurment Heading",
+      "default": "Enter Measurements in CM",
+      "info": "Heading of the custom measurement popup"
+    },
+    {
+      "type": "text",
+      "id": "custom_measurment_lenght",
+      "label": "Custom Measurment Lenght",
+      "default": "Lenght",
+      "info": "Length label in custom size popup"
+    },
+    {
+      "type": "text",
+      "id": "custom_measurment_width",
+      "label": "Custom Measurment Width",
+      "default": "Width",
+      "info": "Width label in custom size popup"
+    },
+    {
+      "type": "text",
+      "id": "custom_measurment_submit",
+      "label": "Custom Measurment Submit",
+      "default": "Submit",
+      "info": "Submit button label"
+    },
+    {
+      "type": "header",
+      "content": "Model Section"
+    },
+    {
+      "type": "text",
+      "id": "heading2",
+      "label": "Heading",
+      "default": "Model"
+    },
+    {
+      "type": "textarea",
+      "id": "text2",
+      "label": "Description",
+      "default": "Description goes here"
+    },
+    {
+      "type": "header",
+      "content": "Fabric Section"
+    },
+    {
+      "type": "text",
+      "id": "heading3",
+      "label": "Heading",
+      "default": "Fabric"
+    },
+    {
+      "type": "textarea",
+      "id": "text3",
+      "label": "Description",
+      "default": "Description goes here"
+    },
+    {
+      "type": "text",
+      "id": "fabric_group1_heading",
+      "label": "Fabric Group 1 Heading",
+      "default": "Group1 (+40)"
+    },
+    {
+      "type": "range",
+      "id": "fabric_group1_price",
+      "min": 10,
+      "max": 200,
+      "step": 5,
+      "unit": "€",
+      "label": "Fabric Group 1 Price",
+      "default": 40
+    },
+    {
+      "type": "metaobject_list",
+      "id": "fabric_group1_entries",
+      "label": "Fabric Group 1 Entries",
+      "metaobject_type": "fabrics"
+    },
+    {
+      "type": "text",
+      "id": "fabric_group2_heading",
+      "label": "Fabric Group 2 Heading",
+      "default": "Group2 (+60)"
+    },
+    {
+      "type": "range",
+      "id": "fabric_group2_price",
+      "min": 10,
+      "max": 200,
+      "step": 5,
+      "unit": "€",
+      "label": "Fabric Group 2 Price",
+      "default": 40
+    },
+    {
+      "type": "metaobject_list",
+      "id": "fabric_group2_entries",
+      "label": "Fabric Group 2 Entries",
+      "metaobject_type": "fabrics"
+    },
+    {
+      "type": "text",
+      "id": "fabric_group3_heading",
+      "label": "Fabric Group 3 Heading",
+      "default": "Group1 (+40)"
+    },
+    {
+      "type": "range",
+      "id": "fabric_group3_price",
+      "min": 10,
+      "max": 200,
+      "step": 5,
+      "unit": "€",
+      "label": "Fabric Group 3 Price",
+      "default": 40
+    },
+    {
+      "type": "metaobject_list",
+      "id": "fabric_group3_entries",
+      "label": "Fabric Group 3 Entries",
+      "metaobject_type": "fabrics"
+    },
+    {
+      "type": "text",
+      "id": "fabric_group4_heading",
+      "label": "Fabric Group 4 Heading",
+      "default": "Group1 (+40)"
+    },
+    {
+      "type": "range",
+      "id": "fabric_group4_price",
+      "min": 10,
+      "max": 200,
+      "step": 5,
+      "unit": "€",
+      "label": "Fabric Group 4 Price",
+      "default": 40
+    },
+    {
+      "type": "metaobject_list",
+      "id": "fabric_group4_entries",
+      "label": "Fabric Group 4 Entries",
+      "metaobject_type": "fabrics"
+    },
+    {
+      "type": "header",
+      "content": "Laternal Band Section"
+    },
+    {
+      "type": "text",
+      "id": "heading4",
+      "label": "Heading",
+      "default": "Laternal Band"
+    },
+    {
+      "type": "textarea",
+      "id": "text4",
+      "label": "Description",
+      "default": "Description goes here"
+    },
+    {
+      "type": "checkbox",
+      "id": "lband_enable_disable",
+      "label": "Not Needed Option",
+      "default": true
+    },
+    {
+      "type": "text",
+      "id": "lband_disabling_text",
+      "label": "Disabling Label",
+      "default": "I don't want it"
+    },
+    {
+      "type": "text",
+      "id": "lband_disabling_desc",
+      "label": "Disabling Label",
+      "default": "This Option is disabled"
+    },
+    {
+      "type": "text",
+      "id": "lband_group1_heading",
+      "label": "Laternal Band Group 1 Heading",
+      "default": "Group1 (+40)"
+    },
+    {
+      "type": "range",
+      "id": "lband_group1_price",
+      "min": 10,
+      "max": 200,
+      "step": 5,
+      "unit": "€",
+      "label": "Laternal Band Group 1 Price",
+      "default": 40
+    },
+    {
+      "type": "metaobject_list",
+      "id": "lband_group1_entries",
+      "label": "Laternal Band Group 1 Entries",
+      "metaobject_type": "fabrics"
+    },
+    {
+      "type": "text",
+      "id": "lband_group2_heading",
+      "label": "Laternal Band Group 2 Heading",
+      "default": "Group2 (+60)"
+    },
+    {
+      "type": "range",
+      "id": "lband_group2_price",
+      "min": 10,
+      "max": 200,
+      "step": 5,
+      "unit": "€",
+      "label": "Laternal Band Group 2 Price",
+      "default": 40
+    },
+    {
+      "type": "metaobject_list",
+      "id": "lband_group2_entries",
+      "label": "Laternal Band Group 2 Entries",
+      "metaobject_type": "fabrics"
+    },
+    {
+      "type": "text",
+      "id": "lband_group3_heading",
+      "label": "Laternal Band Group 3 Heading",
+      "default": "Group1 (+40)"
+    },
+    {
+      "type": "range",
+      "id": "lband_group3_price",
+      "min": 10,
+      "max": 200,
+      "step": 5,
+      "unit": "€",
+      "label": "Laternal Band Group 3 Price",
+      "default": 40
+    },
+    {
+      "type": "metaobject_list",
+      "id": "lband_group3_entries",
+      "label": "Laternal Band Group 3 Entries",
+      "metaobject_type": "fabrics"
+    },
+    {
+      "type": "text",
+      "id": "lband_group4_heading",
+      "label": "Laternal Band Group 4 Heading",
+      "default": "Group1 (+40)"
+    },
+    {
+      "type": "range",
+      "id": "lband_group4_price",
+      "min": 10,
+      "max": 200,
+      "step": 5,
+      "unit": "€",
+      "label": "Laternal Band Group 4 Price",
+      "default": 40
+    },
+    {
+      "type": "metaobject_list",
+      "id": "lband_group4_entries",
+      "label": "Laternal Band Group 4 Entries",
+      "metaobject_type": "fabrics"
+    },
+    {
+      "type": "header",
+      "content": "Piping Heading"
+    },
+    {
+      "type": "text",
+      "id": "heading5",
+      "label": "Heading",
+      "default": "Piping"
+    },
+    {
+      "type": "textarea",
+      "id": "text5",
+      "label": "Description",
+      "default": "Description goes here"
+    },
+    {
+      "type": "text",
+      "id": "piping_group1_heading",
+      "label": "Piping Group 1 Heading",
+      "default": "Group1"
+    },
+    {
+      "type": "image_picker",
+      "id": "piping_group1_img",
+      "label": "Piping Group 1 Image"
+    },
+    {
+      "type": "range",
+      "id": "piping_group1_price",
+      "min": 0,
+      "max": 200,
+      "step": 5,
+      "unit": "€",
+      "label": "Piping Group 1 Price",
+      "default": 0
+    },
+    {
+      "type": "metaobject_list",
+      "id": "piping_group1_entries",
+      "label": "Piping Group 1 Entries",
+      "metaobject_type": "pipings"
+    },
+    {
+      "type": "text",
+      "id": "piping_group1_info",
+      "info": "Text to show in case there are no more entries",
+      "label": "Info text",
+      "default": "Group 1 is selected"
+    },
+    {
+      "type": "text",
+      "id": "piping_group2_heading",
+      "label": "Piping Group 2 Heading",
+      "default": "Group2 (+10)"
+    },
+    {
+      "type": "image_picker",
+      "id": "piping_group2_img",
+      "label": "Piping Group 2 Image"
+    },
+    {
+      "type": "range",
+      "id": "piping_group2_price",
+      "min": 0,
+      "max": 200,
+      "step": 5,
+      "unit": "€",
+      "label": "Piping Group 2 Price",
+      "default": 10
+    },
+    {
+      "type": "metaobject_list",
+      "id": "piping_group2_entries",
+      "label": "Piping Group 2 Entries",
+      "metaobject_type": "pipings"
+    },
+    {
+      "type": "text",
+      "id": "piping_group2_info",
+      "info": "Text to show in case there are no more entries",
+      "label": "Info text",
+      "default": "Group 2 is selected"
+    },
+    {
+      "type": "text",
+      "id": "piping_group3_heading",
+      "label": "Piping Group 3 Heading",
+      "default": "Group3"
+    },
+    {
+      "type": "image_picker",
+      "id": "piping_group3_img",
+      "label": "Piping Group 3 Image"
+    },
+    {
+      "type": "range",
+      "id": "piping_group3_price",
+      "min": 0,
+      "max": 200,
+      "step": 5,
+      "unit": "€",
+      "label": "Piping Group 3 Price",
+      "default": 0
+    },
+    {
+      "type": "metaobject_list",
+      "id": "piping_group3_entries",
+      "label": "Piping Group 3 Entries",
+      "metaobject_type": "pipings"
+    },
+    {
+      "type": "text",
+      "id": "piping_group4_heading",
+      "label": "Piping Group 4 Heading",
+      "default": "Group4 (+50)"
+    },
+    {
+      "type": "image_picker",
+      "id": "piping_group4_img",
+      "label": "Piping Group 4 Image"
+    },
+    {
+      "type": "range",
+      "id": "piping_group4_price",
+      "min": 0,
+      "max": 200,
+      "step": 5,
+      "unit": "€",
+      "label": "Piping Group 4 Price",
+      "default": 50
+    },
+    {
+      "type": "metaobject_list",
+      "id": "piping_group4_entries",
+      "label": "Piping Group 4 Entries",
+      "metaobject_type": "pipings"
+    },
+    {
+      "type": "header",
+      "content": "Adjusting Price for French market"
+    },
+    {
+      "type": "range",
+      "id": "price_increase",
+      "min": 0,
+      "max": 100,
+      "step": 1,
+      "unit": "%",
+      "label": "% increase per option",
+      "default": 20
+    },
+    {
+      "type": "header",
+      "content": "Other settings"
+    },
+    {
+      "type": "text",
+      "id": "title_tobeselect",
+      "label": "Option to be selected placeholder",
+      "default": "Select Option"
+    },
+    {
+      "type": "text",
+      "id": "price_tobeselect",
+      "label": "price to be selected placeholder",
+      "default": "€"
+    },
+    {
+      "type": "text",
+      "id": "summary_total",
+      "label": "Total Label in summary",
+      "default": "Total"
+    },
+    {
+      "type": "text",
+      "id": "summary_addtocart",
+      "label": "Add to cart button label",
+      "default": "AÑADIR A TU CESTA"
+    },
+    {
+      "type": "text",
+      "id": "summary_addingtocart",
+      "label": "Add to cart button label",
+      "default": "Adding to Cart"
+    }
+  ],
+
+  "presets": [
+    {
+      "name": "Customizer Section"
+    }
+  ]
+}
+{% endschema %}

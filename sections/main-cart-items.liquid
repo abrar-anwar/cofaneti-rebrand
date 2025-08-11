@@ -79,6 +79,12 @@
 
               <tbody>
                 {%- for item in cart.items -%}
+                  {% liquid
+                    assign is_custom_product = false
+                    if item.properties.Price
+                      assign is_custom_product = true
+                    endif
+                  %}
                   <tr class="cart-item" id="CartItem-{{ item.index | plus: 1 }}">
                     <td class="cart-item__media">
                       {% if item.image %}
@@ -102,7 +108,13 @@
                         <p class="caption-with-letter-spacing">{{ item.product.vendor }}</p>
                       {%- endif -%}
 
-                      <a href="{{ item.url }}" class="cart-item__name h4 break">{{ item.product.title | escape }}</a>
+                      <a href="{{ item.url }}" class="cart-item__name h4 break">
+                        {% if is_custom_product %}
+                          Custom Product
+                        {% else %}
+                          {{ item.product.title | escape }}
+                        {% endif %}
+                      </a>
 
                       {%- if item.original_price != item.final_price -%}
                         <div class="cart-item__discounted-prices">
@@ -121,7 +133,11 @@
                         </div>
                       {%- else -%}
                         <div class="product-option">
-                          {{ item.original_price | money }}
+                          {% if is_custom_product %}
+                            {{ item.properties.Price | times: 100 | times: item.quantity | money }}
+                          {% else %}
+                            {{ item.original_price | money }}
+                          {% endif %}
                         </div>
                       {%- endif -%}
 
@@ -130,7 +146,7 @@
                         or item.selling_plan_allocation != null
                       -%}
                         <dl>
-                          {%- if item.product.has_only_default_variant == false -%}
+                          {%- if item.product.has_only_default_variant == false and is_custom_product == false -%}
                             {%- for option in item.options_with_values -%}
                               <div class="product-option">
                                 <dt>{{ option.name }}:</dt>
@@ -142,18 +158,20 @@
                           {%- for property in item.properties -%}
                             {%- assign property_first_char = property.first | slice: 0 -%}
                             {%- if property.last != blank and property_first_char != '_' -%}
-                              <div class="product-option">
-                                <dt>{{ property.first }}:</dt>
-                                <dd>
-                                  {%- if property.last contains '/uploads/' -%}
-                                    <a href="{{ property.last }}" class="link" target="_blank">
-                                      {{ property.last | split: '/' | last }}
-                                    </a>
-                                  {%- else -%}
-                                    {{ property.last }}
-                                  {%- endif -%}
-                                </dd>
-                              </div>
+                              {% unless property.first == 'Price' %}
+                                <div class="product-option">
+                                  <dt>{{ property.first }}:</dt>
+                                  <dd>
+                                    {%- if property.last contains '/uploads/' -%}
+                                      <a href="{{ property.last }}" class="link" target="_blank">
+                                        {{ property.last | split: '/' | last }}
+                                      </a>
+                                    {%- else -%}
+                                      {{ property.last }}
+                                    {%- endif -%}
+                                  </dd>
+                                </div>
+                              {% endunless %}
                             {%- endif -%}
                           {%- endfor -%}
                         </dl>
@@ -193,7 +211,11 @@
                           </dl>
                         {%- else -%}
                           <span class="price price--end">
-                            {{ item.original_line_price | money }}
+                            {% if is_custom_product %}
+                              {{ item.properties.Price | times: 100 | times: item.quantity | money }}
+                            {% else %}
+                              {{ item.original_line_price | money }}
+                            {% endif %}
                           </span>
                         {%- endif -%}
 
@@ -409,7 +431,11 @@
                           </dl>
                         {%- else -%}
                           <span class="price price--end">
-                            {{ item.original_line_price | money }}
+                            {% if is_custom_product %}
+                              {{ item.properties.Price | times: 100 | times: item.quantity | money }}
+                            {% else %}
+                              {{ item.original_line_price | money }}
+                            {% endif %}
                           </span>
                         {%- endif -%}
 

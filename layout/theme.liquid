@@ -54,6 +54,30 @@
       {{ body_font_bold_italic | font_face: font_display: 'swap' }}
       {{ settings.type_header_font | font_face: font_display: 'swap' }}
 
+      @font-face {
+        font-family: 'gothambook';
+        src: url(https://cdn.shopify.com/s/files/1/0838/4695/5274/files/gotham-book-webfont.woff2?v=1753425906) format('woff2'),
+            url(https://cdn.shopify.com/s/files/1/0838/4695/5274/files/gotham-book-webfont.woff?v=1753425906) format('woff');
+        font-weight: normal;
+        font-style: normal;
+      }
+
+      @font-face {
+        font-family: 'gotham_boldregular';
+        src: url(https://cdn.shopify.com/s/files/1/0838/4695/5274/files/gotham-bold-webfont.woff2?v=1753427679) format('woff2'),
+            url(https://cdn.shopify.com/s/files/1/0838/4695/5274/files/gotham-bold-webfont.woff?v=1753427679) format('woff');
+        font-weight: normal;
+        font-style: normal;
+      }
+
+      @font-face {
+        font-family: 'gothammedium';
+        src: url(https://cdn.shopify.com/s/files/1/0838/4695/5274/files/gotham-medium-webfont.woff2?v=1753475139) format('woff2'),
+            url(https://cdn.shopify.com/s/files/1/0838/4695/5274/files/gotham-medium-webfont.woff?v=1753475139) format('woff');
+        font-weight: normal;
+        font-style: normal;
+      }
+
       {% for scheme in settings.color_schemes -%}
         {% assign scheme_classes = scheme_classes | append: ', .color-' | append: scheme.id %}
         {% if forloop.index == 1 -%}
@@ -100,12 +124,15 @@
       }
 
       :root {
-        --font-body-family: {{ settings.type_body_font.family }}, {{ settings.type_body_font.fallback_families }};
+        --font-body-family: 'gothambook', {{ settings.type_body_font.fallback_families }};
+        /* --font-body-family: {{ settings.type_body_font.family }}, {{ settings.type_body_font.fallback_families }}; */
         --font-body-style: {{ settings.type_body_font.style }};
         --font-body-weight: {{ settings.type_body_font.weight }};
         --font-body-weight-bold: {{ settings.type_body_font.weight | plus: 300 | at_most: 1000 }};
 
-        --font-heading-family: {{ settings.type_header_font.family }}, {{ settings.type_header_font.fallback_families }};
+
+        --font-heading-family: 'gothammedium', {{ settings.type_header_font.fallback_families }};
+        /* --font-heading-family: {{ settings.type_header_font.family }}, {{ settings.type_header_font.fallback_families }}; */
         --font-heading-style: {{ settings.type_header_font.style }};
         --font-heading-weight: {{ settings.type_header_font.weight }};
 

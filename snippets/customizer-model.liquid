@@ -1,0 +1,84 @@
+<div class="customizer_opt customizer_opt1" data-option-price="0.00">
+  <div class="customizer_optTitle">
+    <h2>{{ section.settings.heading2 }}</h2>
+  </div>
+
+  <div class="customizer_optItems">
+    {% for model in shop.metaobjects.models.values %}
+      <div class="config_opt_item shape-picker__option">
+        <input
+          class="shape-picker__input"
+          id="model-{{ forloop.index | plus: 1 }}"
+          type="radio"
+          name="models"
+          value="{{ model.title.value }}"
+          data-price="0"
+          {% if forloop.index == 1 %}
+            checked
+          {% endif %}
+        >
+        <label
+          for="model-{{ forloop.index | plus: 1 }}"
+          class="shape-picker__label"
+          data-label="{{ model.title.value }}"
+          style="--model-img:url({{ model.image | image_url: width: 150 }})"
+        >
+        </label>
+      </div>
+    {% endfor %}
+  </div>
+  <p class="customizer_optInfo reduce_font">{{ section.settings.text2 }}</p>
+</div>
+
+<style>
+  .shape-picker__option {
+    position: relative;
+  }
+
+  .shape-picker__input {
+    position: absolute;
+    opacity: 0;
+    pointer-events: none;
+  }
+
+  .shape-picker__label {
+    --shape-size: 120px; /* overall width */
+    width: var(--shape-size);
+    height: calc(var(--shape-size) * 0.8); /* adjust if shapes taller/shorter */
+    display: inline-block;
+    background: no-repeat center/contain var(--model-img);
+    cursor: pointer;
+    position: relative;
+    transition: transform 0.35s ease;
+  }
+  .shape-picker__label:hover {
+    transform: scale(1.03);
+  }
+
+  .shape-picker__input:checked + .shape-picker__label::after {
+    content: attr(data-label);
+    position: absolute;
+    inset: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    pointer-events: none;
+    padding-top: 20px;
+  }
+</style>
+
+<script>
+  // Listen for changes only inside the Model block
+  const modelBlock = document.querySelector('[data-blockname="model__block"], [data-blockName="model__block"]');
+
+  if (modelBlock) {
+    modelBlock.addEventListener('change', (e) => {
+      const input = e.target.closest('input[type="radio"]');
+      if (!input) return;
+
+      if (typeof updateFooterSummary === 'function') {
+        updateFooterSummary();
+      }
+    });
+  }
+</script>

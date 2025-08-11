@@ -1,0 +1,87 @@
+{%- assign first_size = section.settings.size_entries | first -%}
+{%- assign default_price = 0 -%}
+{%- if first_size -%}
+  {%- assign default_price = first_size.price.value -%}
+  {%- if french_market -%}
+    {%- assign inc = default_price | times: section.settings.price_increase | divided_by: 100 -%}
+    {%- assign default_price = default_price | plus: inc -%}
+  {%- endif -%}
+{%- endif -%}
+
+<div class="customizer_opt customizer_opt1" data-option-price="{{ default_price | money_without_currency }}">
+  <div class="customizer_optTitle">
+    <h2>{{ section.settings.heading1 }}</h2>
+  </div>
+
+  <div class="customizer_optItems">
+    {% for size in section.settings.size_entries %}
+      {% assign size_price = size.price.value %}
+      {% if french_market %}
+        {% assign increase = size_price | times: section.settings.price_increase | divided_by: 100 %}
+        {% assign size_price = size_price | plus: increase %}
+      {% endif %}
+      <label class="customizer_optItem">
+        <input
+          type="radio"
+          name="sizes"
+          value="{{ size.length.value }}cm X {{ size.height.value }}cm"
+          data-price="{{ size_price | money_without_currency }}"
+          {% if forloop.index == 1 %}
+            checked
+          {% endif %}
+        >
+        <span class="option-title">{{ size.length.value }}cm X {{ size.height.value }}cm</span>
+      </label>
+    {% endfor %}
+
+    {% if section.settings.enable_custom_size %}
+      <label class="customizer_optItem">
+        <input
+          type="radio"
+          name="sizes"
+          value="Custom Size"
+          class="custom-size"
+          data-price=""
+        >
+        <span class="option-title">{{ section.settings.custom_size_btn_text }}</span>
+      </label>
+    {% endif %}
+  </div>
+  <p class="customizer_optInfo reduce_font">{{ section.settings.text1 }}</p>
+</div>
+
+{% if section.settings.enable_custom_size %}
+  {% render 'customizer-size-modal', section: section %}
+{% endif %}
+
+{% stylesheet %}
+  .customizer_opt {
+    text-align: center;
+  }
+
+  .customizer_opt1 .customizer_optItems {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: center;
+    gap: 20px 40px;
+  }
+
+  .customizer_opt1 .customizer_optItem {
+    cursor: pointer;
+  }
+
+  .customizer_opt1 .option-title {
+    font-size: 14px;
+  }
+
+  .customizer_opt1 input[type='radio'] {
+    display: none;
+  }
+
+  .customizer_opt1 input[type='radio']:checked + .option-title {
+    text-decoration: underline;
+    font-weight: bold;
+    font-family: 'gothammedium';
+  }
+{% endstylesheet %}
