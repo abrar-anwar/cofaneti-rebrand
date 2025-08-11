@@ -1,42 +1,6 @@
+// ===============================
 // Options/suboptions linking logic
-
-// document.querySelectorAll(".customizer_optionBlock").forEach((optionBlock) => {
-//   const blockName = optionBlock.dataset.blockname;
-//   const mediaContainer = document.getElementById(blockName);
-//   if (!mediaContainer) return;
-
-//   const tabs = optionBlock.querySelectorAll(".customizer-tab");
-//   const contents = mediaContainer.querySelectorAll(".customizer-tab-content");
-
-//   tabs.forEach((tab) => {
-//     tab.addEventListener("click", () => {
-//       const targetId = tab.dataset.tab;
-
-//       // 1) Show only this block’s media panel
-//       document
-//         .querySelectorAll(".option_media_block")
-//         .forEach((b) => b.classList.toggle("active", b.id === blockName));
-
-//       // 2) Highlight the clicked tab
-//       tabs.forEach((t) => t.classList.toggle("active", t === tab));
-
-//       // 3) Show only the matching content inside this mediaContainer
-//       contents.forEach((c) => c.classList.toggle("active", c.id === targetId));
-
-//       // 4) Reset scroll on the shown content (just its own scroll)
-//       const activeContent = mediaContainer.querySelector(`#${targetId}`);
-//       if (activeContent) {
-//         activeContent.scrollTop = 0;
-//       }
-
-//       // 5) Scroll that new content into view in the left panel
-//       if (activeContent) {
-//         activeContent.scrollIntoView({ behavior: "smooth", block: "start" });
-//       }
-//     });
-//   });
-// });
-
+// ===============================
 document.querySelectorAll(".customizer_optionBlock").forEach((optionBlock) => {
   const blockName = optionBlock.dataset.blockname;
   const mediaContainer = document.getElementById(blockName);
@@ -56,18 +20,15 @@ document.querySelectorAll(".customizer_optionBlock").forEach((optionBlock) => {
           .forEach((b) => b.classList.toggle("active", b.id === blockName));
 
         tabs.forEach((t) => t.classList.toggle("active", t === tab));
-
         contents.forEach((c) =>
           c.classList.toggle("active", c.id === targetId)
         );
 
-        //matchingContent.scrollTop = 0;
         matchingContent.scrollIntoView({ behavior: "smooth", block: "start" });
       } else {
         document
           .querySelectorAll(".option_media_block")
           .forEach((b) => b.classList.remove("active"));
-
         tabs.forEach((t) => t.classList.toggle("active", t === tab));
 
         const summary = optionBlock.querySelector(".selected_opt_summay");
@@ -79,9 +40,7 @@ document.querySelectorAll(".customizer_optionBlock").forEach((optionBlock) => {
         }
 
         const optElem = optionBlock.querySelector("[data-option-price]");
-        if (optElem) {
-          optElem.dataset.optionPrice = (0).toFixed(2);
-        }
+        if (optElem) optElem.dataset.optionPrice = (0).toFixed(2);
 
         updateFooterSummary();
       }
@@ -89,10 +48,9 @@ document.querySelectorAll(".customizer_optionBlock").forEach((optionBlock) => {
   });
 });
 
-// End Options/suboptions linking logic
-
-// Handle View button click
-
+// ======================
+// Handle View button
+// ======================
 document.querySelectorAll(".btn_view").forEach((button) => {
   button.addEventListener("click", (e) => {
     e.stopPropagation();
@@ -100,7 +58,6 @@ document.querySelectorAll(".btn_view").forEach((button) => {
     const imageUrl = parentItem?.getAttribute("data-img");
     if (!imageUrl) return;
 
-    // Create overlay
     const overlay = document.createElement("div");
     overlay.className = "image-popup-overlay";
 
@@ -118,7 +75,7 @@ document.querySelectorAll(".btn_view").forEach((button) => {
 
     const closePopup = () => {
       overlay.classList.remove("active");
-      document.body.style.overflow = ""; // unlock scroll
+      document.body.style.overflow = "";
       setTimeout(() => overlay.remove(), 300);
     };
 
@@ -129,16 +86,15 @@ document.querySelectorAll(".btn_view").forEach((button) => {
     wrapper.appendChild(img);
     document.body.appendChild(overlay);
 
-    // Fade-in
     requestAnimationFrame(() => overlay.classList.add("active"));
-    document.body.style.overflow = "hidden"; // lock scroll
+    document.body.style.overflow = "hidden";
 
-    overlay.addEventListener("click", (e) => {
-      if (e.target === overlay) closePopup();
+    overlay.addEventListener("click", (evt) => {
+      if (evt.target === overlay) closePopup();
     });
 
-    document.addEventListener("keydown", function escListener(e) {
-      if (e.key === "Escape") {
+    document.addEventListener("keydown", function escListener(evt) {
+      if (evt.key === "Escape") {
         closePopup();
         document.removeEventListener("keydown", escListener);
       }
@@ -146,9 +102,9 @@ document.querySelectorAll(".btn_view").forEach((button) => {
   });
 });
 
-// End Handle View button
-
-// Handle Select button click
+// ========================
+// Handle Select button
+// ========================
 document.querySelectorAll(".btn_select").forEach((button) => {
   button.addEventListener("click", (e) => {
     e.stopPropagation();
@@ -178,7 +134,6 @@ document.querySelectorAll(".btn_select").forEach((button) => {
 
     const optElem = targetBlock.querySelector("[data-option-price]");
     if (optElem) {
-      // ensure two-decimal format:
       optElem.dataset.optionPrice = parseFloat(price).toFixed(2);
     }
 
@@ -191,28 +146,27 @@ document.querySelectorAll(".btn_select").forEach((button) => {
     updateFooterSummary();
   });
 });
-// End Handle Select button click
 
+// =========================
 // Handle Media Item click
-
+// =========================
 document.querySelectorAll(".customizer-tab-item").forEach((item) => {
   item.addEventListener("click", () => {
-    // Find the block this item belongs to
     const block = item.closest(".option_media_block");
     if (!block) return;
 
-    // Remove selected only from items in this same block
     block
       .querySelectorAll(".customizer-tab-item.selected")
       .forEach((i) => i.classList.remove("selected"));
 
-    // Mark this one as selected
     item.classList.add("selected");
   });
 });
 
+// =========================
+// Footer summary + totals
+// =========================
 function updateFooterSummary() {
-  // parse "375,00" or "375.00" -> 375
   const parsePrice = (v) => {
     if (v == null) return 0;
     const n = parseFloat(
@@ -225,7 +179,6 @@ function updateFooterSummary() {
 
   let total = 0;
 
-  // cache footer rows by their <h4> text (we only READ these, never change)
   const footerRows = Array.from(
     document.querySelectorAll(".customizer_summary_item .sum_optionTitle")
   );
@@ -237,7 +190,6 @@ function updateFooterSummary() {
       if (!h2) return;
       const heading = h2.textContent.trim();
 
-      // selected label/value for this block
       let selectedText = "";
       const checked = optionBlock.querySelector('input[type="radio"]:checked');
 
@@ -257,7 +209,6 @@ function updateFooterSummary() {
 
       if (!selectedText) selectedText = "Select Option";
 
-      // write ONLY the <p> in the matching footer row
       const footerRow = footerRows.find(
         (r) => r.querySelector("h4")?.textContent.trim() === heading
       );
@@ -266,7 +217,6 @@ function updateFooterSummary() {
         if (p) p.textContent = selectedText;
       }
 
-      // accumulate price from this block
       const pricedEl = optionBlock.querySelector("[data-option-price]");
       if (pricedEl) total += parsePrice(pricedEl.dataset.optionPrice);
     });
@@ -281,10 +231,6 @@ function updateAtcButtonState() {
   const btn = document.querySelector(".atc_btn");
   if (!btn) return;
 
-  const label = btn.querySelector("span");
-
-  // Every option block must have either a checked radio
-  // OR a non-default summary value
   const allDone = Array.from(
     document.querySelectorAll(".customizer_optionBlock")
   ).every((block) => {
@@ -302,12 +248,14 @@ function updateAtcButtonState() {
   btn.classList.toggle("disabled", !allDone);
 }
 
-// Run on load
 document.addEventListener("DOMContentLoaded", updateFooterSummary);
 
 // Expose for your handlers
 window.updateFooterSummary = updateFooterSummary;
 
+// =========================
+// Swiper + summary toggle
+// =========================
 const swiper = new Swiper(".swiper", {
   direction: "vertical",
   slidesPerView: 1,
@@ -334,6 +282,144 @@ document.addEventListener("click", (e) => {
   if (footer) footer.classList.toggle("active");
 });
 
+// =========================
+// Helpers (server + cart)
+// =========================
+function getSelectedSizeTitle() {
+  const block = document.querySelector('[data-blockname="size__block"]');
+  if (!block) return "";
+  const checked = block.querySelector('input[name="sizes"]:checked');
+  if (!checked) return "";
+  const label = checked.closest("label");
+  const titleEl = label ? label.querySelector(".option-title") : null;
+  const title =
+    titleEl && titleEl.textContent ? titleEl.textContent.trim() : "";
+  return title || (checked.value ? String(checked.value).trim() : "");
+}
+
+function getTotalFromFooterNumber() {
+  const el = document.querySelector(".customizer_total p");
+  if (!el) return 0;
+  let s = (el.textContent || "").trim();
+  s = s.replace(",", ".").replace(/[^\d.-]/g, "");
+  const n = parseFloat(s);
+  return isNaN(n) ? 0 : n;
+}
+
+// If server returns a GID, extract the trailing numeric id
+function toVariantNumericId(id) {
+  if (id == null) return null;
+  if (typeof id === "number") return id;
+  const m = String(id).match(/(\d+)(?:\D*)$/);
+  return m ? Number(m[1]) : null;
+}
+
+async function createVariantOnServer(payload) {
+  const url =
+    (window.general && window.general.createVariantEndpoint) ||
+    "/apps/customizer/create-variant";
+
+  const res = await fetch(url, {
+    method: "POST",
+    headers: { "Content-Type": "application/json", Accept: "application/json" },
+    credentials: "include",
+    body: JSON.stringify(payload),
+  });
+
+  let data;
+  try {
+    data = await res.json();
+  } catch (_) {
+    data = null;
+  }
+
+  if (!res.ok) {
+    const msg =
+      (data && (data.message || data.description)) || "HTTP " + res.status;
+    throw new Error(msg);
+  }
+  return data;
+}
+
+async function addVariantToCart(variantId, quantity, properties) {
+  const payload = {
+    items: [{ id: Number(variantId), quantity: Number(quantity) || 1 }],
+  };
+  if (properties && typeof properties === "object") {
+    payload.items[0].properties = properties;
+  }
+
+  const res = await fetch("/cart/add.js", {
+    method: "POST",
+    headers: { "Content-Type": "application/json", Accept: "application/json" },
+    credentials: "include",
+    body: JSON.stringify(payload),
+  });
+
+  let data;
+  try {
+    data = await res.json();
+  } catch (_) {
+    data = { raw: await res.text() };
+  }
+
+  if (!res.ok) {
+    const msg =
+      (data && (data.description || data.message)) || "Failed to add to cart";
+    throw new Error(msg);
+  }
+  return data;
+}
+
+const DELAY_BEFORE_CART_MS = 4000;
+function delay(ms) {
+  return new Promise((res) => setTimeout(res, ms));
+}
+
+function showCartErrorPopup() {
+  const overlay = document.createElement("div");
+  overlay.className = "image-popup-overlay active";
+
+  const wrap = document.createElement("div");
+  wrap.className = "image-popup-wrapper";
+
+  const closeBtn = document.createElement("button");
+  closeBtn.className = "image-popup-close";
+  closeBtn.innerHTML = "&times;";
+
+  const card = document.createElement("div");
+  card.setAttribute(
+    "style",
+    "max-width:520px;background:#fff;padding:20px 24px;border-radius:8px;" +
+      "box-shadow:0 2px 20px rgba(0,0,0,.25);font-size:16px;line-height:1.5;text-align:center;"
+  );
+  card.innerHTML = `
+    <h3 style="margin:0 0 8px;font-size:18px;">Lo sentimos</h3>
+    <p style="margin:0;">We are unable to add item to the cart at the moment,<br>
+    please contact us on <strong>56573738</strong>.</p>
+  `;
+
+  const close = () => {
+    overlay.classList.remove("active");
+    document.body.style.overflow = "";
+    setTimeout(() => overlay.remove(), 250);
+  };
+
+  closeBtn.addEventListener("click", close);
+  overlay.addEventListener("click", (ev) => {
+    if (ev.target === overlay) close();
+  });
+
+  wrap.appendChild(closeBtn);
+  wrap.appendChild(card);
+  overlay.appendChild(wrap);
+  document.body.appendChild(overlay);
+  document.body.style.overflow = "hidden";
+}
+
+// ==========================================
+// ATC click handler (no spinner, 4s delay)
+// ==========================================
 document.addEventListener("click", async (e) => {
   const btn = e.target.closest(".atc_btn");
   if (!btn) return;
@@ -342,14 +428,18 @@ document.addEventListener("click", async (e) => {
 
   const label = btn.querySelector("span");
   const originalText = label ? label.textContent : "";
+  const baseAddingText =
+    (window.general && window.general.addingToCart) || "ADDING TO THE CART";
+
   btn.disabled = true;
-  if (label)
-    label.textContent = window.general.addingToCart || "ADDING TO THE CART";
+  if (label) label.textContent = baseAddingText;
 
   let success = false;
   try {
+    // keep summary fresh
     window.updateFooterSummary?.();
 
+    // Build line-item properties from the footer
     const props = {};
     const missing = [];
     document
@@ -368,42 +458,57 @@ document.addEventListener("click", async (e) => {
       return;
     }
 
-    const total = document
-      .querySelector(".customizer_total p")
-      ?.textContent.trim();
-    if (total) props["Price"] = total;
-
-    const id = document.querySelector('input[name="id"]')?.value;
-    if (!id) {
-      alert("Variant ID missing.");
+    // Variant title = selected size
+    const sizeTitle = getSelectedSizeTitle();
+    if (!sizeTitle) {
+      alert("Please select a size.");
       return;
     }
 
-    const res = await fetch("/cart/add.js", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-        Accept: "application/json",
-      },
-      body: JSON.stringify({
-        items: [{ id: Number(id), quantity: 1, properties: props }],
-      }),
-    });
+    // Price to send (what shopper sees)
+    const totalNumber = getTotalFromFooterNumber();
+    if (!totalNumber || totalNumber <= 0) {
+      alert("Calculated price is missing.");
+      return;
+    }
 
-    if (!res.ok) {
-      let msg = "Add to cart failed.";
-      try {
-        const err = await res.json();
-        msg = err?.description || err?.message || msg;
-      } catch (_) {}
-      alert(msg);
+    // Also store visible price on the line item
+    props["Price"] = totalNumber.toFixed(2);
+
+    // Create-variant payload for your server
+    const payload = {
+      productId: (window.general && window.general.productId) || undefined,
+      title: sizeTitle,
+      price: Number(totalNumber),
+      profileId: (window.general && window.general.profileId) || undefined,
+    };
+
+    // 1) Create variant on your server
+    const created = await createVariantOnServer(payload);
+    const rawId =
+      created?.variant?.id || created?.id || created?.variant_id || null;
+    const newVariantId = toVariantNumericId(rawId);
+
+    if (!newVariantId) {
+      showCartErrorPopup();
+      return;
+    }
+
+    // 2) Wait 4 seconds before adding to cart
+    await delay(DELAY_BEFORE_CART_MS);
+
+    // 3) Add newly-created variant to cart
+    try {
+      await addVariantToCart(newVariantId, 1, props);
+    } catch (_) {
+      showCartErrorPopup();
       return;
     }
 
     success = true;
     window.location.href = "/cart";
   } catch (_) {
-    alert("Network error. Please try again.");
+    showCartErrorPopup();
   } finally {
     if (!success) {
       btn.disabled = false;

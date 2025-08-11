@@ -14,6 +14,9 @@
    };
 
    window.general = {
+    productId: {{ product.id | json }},
+    profileId: "127756370186",
+    createVariantEndpoint: "http://localhost:3000/create-variant",
     addingToCart: {{ section.settings.summary_addingtocart | json }}
   };
 
